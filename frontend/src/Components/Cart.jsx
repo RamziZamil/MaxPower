@@ -15,7 +15,7 @@ const Cart = () => {
     return (
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="flex items-center justify-center mb-8">
-          <ShoppingBag className="text-purple-600 mr-3" size={28} />
+          <ShoppingBag className="text-[#f46c00] mr-3" size={28} />
           <h1 className="text-3xl font-bold">Shopping Cart</h1>
         </div>
         <div className="bg-white border border-gray-200 p-8 rounded-xl shadow-lg max-w-lg mx-auto text-center">
@@ -25,7 +25,7 @@ const Cart = () => {
           </p>
           <Link
             to="/login"
-            className="inline-block px-8 py-3 bg-purple-600 text-white font-medium rounded-full hover:bg-purple-700 transition-colors shadow-md"
+            className="inline-block px-8 py-3 bg-[#f46c00] text-white font-medium rounded-full hover:bg-[#d85f00] transition-colors shadow-md"
           >
             Sign In
           </Link>
@@ -38,11 +38,11 @@ const Cart = () => {
     return (
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="flex items-center justify-center mb-8">
-          <ShoppingBag className="text-purple-600 mr-3" size={28} />
+          <ShoppingBag className="text-[#f46c00] mr-3" size={28} />
           <h1 className="text-3xl font-bold">Shopping Cart</h1>
         </div>
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-600 border-opacity-50 border-b-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#f46c00] border-opacity-50 border-b-4"></div>
         </div>
       </div>
     );
@@ -51,7 +51,7 @@ const Cart = () => {
     return (
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="flex items-center justify-center mb-8">
-          <ShoppingBag className="text-purple-600 mr-3" size={28} />
+          <ShoppingBag className="text-[#f46c00] mr-3" size={28} />
           <h1 className="text-3xl font-bold">Shopping Cart</h1>
         </div>
         <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl">
@@ -107,7 +107,7 @@ const Cart = () => {
     <div className="bg-gray-50 min-h-screen py-10">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="flex items-center justify-center mb-8">
-          <ShoppingBag className="text-purple-600 mr-3" size={28} />
+          <ShoppingBag className="text-[#f46c00] mr-3" size={28} />
           <h1 className="text-3xl font-bold">Shopping Cart</h1>
         </div>
 
@@ -122,8 +122,8 @@ const Cart = () => {
         {!cart?.items?.length ? (
           <div className="bg-white rounded-xl shadow-md p-10 text-center">
             <div className="flex justify-center mb-6">
-              <div className="bg-purple-100 p-4 rounded-full">
-                <ShoppingBag className="text-purple-600" size={40} />
+              <div className="bg-[#f46c00]/10 p-4 rounded-full">
+                <ShoppingBag className="text-[#f46c00]" size={40} />
               </div>
             </div>
             <h2 className="text-2xl font-semibold mb-3">Your cart is empty</h2>
@@ -132,7 +132,7 @@ const Cart = () => {
             </p>
             <Link
               to="/products"
-              className="inline-flex items-center px-6 py-3 bg-purple-600 text-white font-medium rounded-full hover:bg-purple-700 transition-colors shadow-md"
+              className="inline-flex items-center px-6 py-3 bg-[#f46c00] text-white font-medium rounded-full hover:bg-[#d85f00] transition-colors shadow-md"
             >
               Browse Products <ArrowRight className="ml-2" size={18} />
             </Link>
@@ -164,7 +164,7 @@ const Cart = () => {
                           <h3 className="font-semibold text-lg mb-1">
                             {cartItem.item.name}
                           </h3>
-                          <p className="text-purple-600 font-medium mb-4">
+                          <p className="text-[#f46c00] font-medium mb-4">
                             JOD {cartItem.item.pricePerUnit}
                           </p>
 
@@ -248,7 +248,7 @@ const Cart = () => {
                 <div className="border-t border-gray-100 pt-4 mb-6">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">Total</span>
-                    <span className="text-xl font-bold text-purple-600">
+                    <span className="text-xl font-bold text-[#f46c00]">
                       JOD {calculateTotal().toFixed(2)}
                     </span>
                   </div>
@@ -256,7 +256,7 @@ const Cart = () => {
 
                 <button
                   onClick={handleCheckout}
-                  className="w-full py-3 bg-purple-600 text-white font-medium rounded-full hover:bg-purple-700 transition-colors shadow-md flex items-center justify-center"
+                  className="w-full py-3 bg-[#f46c00] text-white font-medium rounded-full hover:bg-[#d85f00] transition-colors shadow-md flex items-center justify-center"
                 >
                   Proceed to Checkout
                   <ArrowRight className="ml-2" size={18} />
@@ -265,7 +265,7 @@ const Cart = () => {
                 <div className="mt-6 text-center">
                   <Link
                     to="/products"
-                    className="text-purple-600 hover:text-purple-800 transition-colors font-medium"
+                    className="text-[#f46c00] hover:text-[#d85f00] transition-colors font-medium"
                   >
                     Continue Shopping
                   </Link>

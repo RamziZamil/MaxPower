@@ -73,7 +73,18 @@ function App() {
               <Route path="/products/:id" element={<ProductDetails />} />
             </Routes>
             {showNavbarFooter && <Footer />}
-            <ToastContainer />
+            <ToastContainer
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </CartProvider>
       </WishlistProvider>

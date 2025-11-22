@@ -1,10 +1,10 @@
-# FreedomRoad - Your One‑Stop Interior Decoration Platform
+# MaxPower - Your One‑Stop Interior Decoration Platform
 
-**FreedomRoad** is your go‑to destination for all things interior decoration. Transform your spaces with premium materials, personalized design, and professional execution—effortlessly and affordably. 🏠✨
+**MaxPower** is your go‑to destination for all things interior decoration. Transform your spaces with premium materials, personalized design, and professional execution—effortlessly and affordably. 🏠✨
 
 ## 🎯 Project Overview
 
-FreedomRoad revolutionizes the interior décor market by delivering a frictionless, end-to-end experience. From browsing modern gypsum boards and decorative elements to booking design consultations and managing the execution process, customers gain full control over their projects—all within a single platform.
+MaxPower revolutionizes the interior décor market by delivering a frictionless, end-to-end experience. From browsing modern gypsum boards and decorative elements to booking design consultations and managing the execution process, customers gain full control over their projects—all within a single platform.
 
 ## 🚀 Value Proposition
 

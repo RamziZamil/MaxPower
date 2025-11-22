@@ -62,10 +62,6 @@ function Signup() {
       setError("Passwords do not match.");
       return false;
     }
-    if (!image) {
-      setError("Please upload a profile image.");
-      return false;
-    }
     return true;
   };
 
@@ -114,7 +110,9 @@ function Signup() {
     formDataToSend.append("password", formData.password);
     formDataToSend.append("phoneNumber", formData.phoneNumber);
     formDataToSend.append("address", formData.address);
-    formDataToSend.append("image", image);
+    if (image) {
+      formDataToSend.append("image", image);
+    }
 
     try {
       await axios.post(
@@ -128,10 +126,10 @@ function Signup() {
       );
       Swal.fire({
         icon: "success",
-        title: "Welcome to FreedomRoad!",
+        title: "Welcome to MaxPower!",
         text: "Your account has been created successfully",
         showConfirmButton: true,
-        confirmButtonColor: "#4F46E5",
+        confirmButtonColor: "#f46c00",
         timer: 3000,
       });
       navigate("/login");
@@ -142,7 +140,7 @@ function Signup() {
         title: "Oops...",
         text:
           error.response?.data?.message || "Signup failed. Please try again.",
-        confirmButtonColor: "#4F46E5",
+        confirmButtonColor: "#f46c00",
       });
     } finally {
       setLoading(false);
@@ -162,7 +160,7 @@ function Signup() {
           }}
         >
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/90 via-purple-800/80 to-pink-600/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-800/90 via-gray-700/80 to-gray-800/70"></div>
         </div>
 
         {/* Content */}
@@ -195,7 +193,7 @@ function Signup() {
             </p>
             <div className="space-y-5">
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
-                <div className="p-2 bg-indigo-500 rounded-full mr-4 shadow-lg">
+                <div className="p-2 bg-[#f46c00] rounded-full mr-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -216,7 +214,7 @@ function Signup() {
                 </p>
               </div>
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
-                <div className="p-2 bg-indigo-500 rounded-full mr-4 shadow-lg">
+                <div className="p-2 bg-[#f46c00] rounded-full mr-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -237,7 +235,7 @@ function Signup() {
                 </p>
               </div>
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
-                <div className="p-2 bg-indigo-500 rounded-full mr-4 shadow-lg">
+                <div className="p-2 bg-[#f46c00] rounded-full mr-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -267,8 +265,8 @@ function Signup() {
         <div className="w-full max-w-md p-8">
           <div className="text-center mb-6">
             <h1 className="text-2xl font-bold">
-              <span className="text-indigo-600">Freedom</span>
-              <span className="text-pink-500">Road</span>
+              <span className="text-[#f46c00]">Max</span>
+              <span className="text-gray-700">Power</span>
             </h1>
             <p className="text-gray-600 mt-2">
               {step === 1
@@ -282,17 +280,17 @@ function Signup() {
             <div className="flex items-center">
               <div
                 className={`w-3 h-3 rounded-full ${
-                  step >= 1 ? "bg-indigo-600" : "bg-gray-300"
+                  step >= 1 ? "bg-[#f46c00]" : "bg-gray-300"
                 }`}
               ></div>
               <div
                 className={`w-12 h-1 ${
-                  step >= 2 ? "bg-indigo-600" : "bg-gray-300"
+                  step >= 2 ? "bg-[#f46c00]" : "bg-gray-300"
                 }`}
               ></div>
               <div
                 className={`w-3 h-3 rounded-full ${
-                  step >= 2 ? "bg-indigo-600" : "bg-gray-300"
+                  step >= 2 ? "bg-[#f46c00]" : "bg-gray-300"
                 }`}
               ></div>
             </div>
@@ -313,7 +311,7 @@ function Signup() {
                     name="name"
                     type="text"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Full Name"
                     value={formData.name}
                     onChange={handleChange}
@@ -325,7 +323,7 @@ function Signup() {
                     name="email"
                     type="email"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Email address"
                     value={formData.email}
                     onChange={handleChange}
@@ -337,7 +335,7 @@ function Signup() {
                     name="phoneNumber"
                     type="tel"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Phone Number (+962XXXXXXXXX)"
                     value={formData.phoneNumber}
                     onChange={handleChange}
@@ -349,7 +347,7 @@ function Signup() {
                     name="address"
                     type="text"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Address"
                     value={formData.address}
                     onChange={handleChange}
@@ -359,7 +357,7 @@ function Signup() {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition duration-200"
+                  className="w-full bg-[#f46c00] text-white py-3 px-4 rounded-md hover:bg-[#d85f00] transition duration-200"
                 >
                   Continue
                 </button>
@@ -372,7 +370,7 @@ function Signup() {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
@@ -394,7 +392,7 @@ function Signup() {
                     name="retypePassword"
                     type={showPassword ? "text" : "password"}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#f46c00]"
                     placeholder="Confirm Password"
                     value={formData.retypePassword}
                     onChange={handleChange}
@@ -410,7 +408,7 @@ function Signup() {
                       <div
                         className={`border-2 border-dashed rounded-md p-4 flex-grow cursor-pointer ${
                           previewImage
-                            ? "border-indigo-300 bg-indigo-50"
+                            ? "border-[#f46c00] bg-[#f46c00]/10"
                             : "border-gray-300"
                         }`}
                         onClick={() => document.getElementById("image").click()}
@@ -455,7 +453,7 @@ function Signup() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-1/2 bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition duration-200 flex justify-center items-center"
+                    className="w-1/2 bg-[#f46c00] text-white py-3 px-4 rounded-md hover:bg-[#d85f00] transition duration-200 flex justify-center items-center"
                   >
                     {loading ? (
                       <>
@@ -494,7 +492,7 @@ function Signup() {
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-800"
+                  className="font-medium text-[#f46c00] hover:text-[#d85f00]"
                 >
                   Sign in
                 </Link>

@@ -70,8 +70,16 @@ exports.register = async (req, res) => {
       const messages = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({
         success: false,
-        message: "Validation Error",
+        message: messages[0] || "Validation Error",
         errors: messages,
+      });
+    }
+
+    // Handle duplicate key errors (e.g., duplicate email)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already registered",
       });
     }
 

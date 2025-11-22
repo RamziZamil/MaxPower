@@ -12,7 +12,7 @@ const createAdmin = async () => {
         });
 
         // First, check if admin already exists
-        const adminExists = await User.findOne({ email: 'admin@freedomroad.com' });
+        const adminExists = await User.findOne({ email: 'admin@maxpower.com' });
         
         if (adminExists) {
             console.log('Admin user already exists');
@@ -21,7 +21,7 @@ const createAdmin = async () => {
 
         const admin = await User.create({
             name: 'Admin User',
-            email: 'admin@freedomroad.com',
+            email: 'admin@maxpower.com',
             password: 'Admin@123456',
             phoneNumber: '+966501234567',
             address: 'Admin Address, Saudi Arabia',

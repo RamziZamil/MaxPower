@@ -36,7 +36,7 @@ const itemSchema = new mongoose.Schema({
   },
   supplier: {
     type: String,
-    default: "Freedom Road",
+    default: "Max Power",
   },
   category: {
     type: String,

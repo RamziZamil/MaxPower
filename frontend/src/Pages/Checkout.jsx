@@ -4,6 +4,8 @@ import { useAuth } from "../AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { FaShoppingBag, FaCreditCard, FaMoneyBillWave, FaCheckCircle } from "react-icons/fa";
 
 const Checkout = () => {
   const { cart, loading, clearCart } = useCart();
@@ -19,13 +21,9 @@ const Checkout = () => {
     city: "",
     state: "",
     zipCode: "",
-    cardName: "",
-    cardNumber: "",
-    expDate: "",
-    cvv: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("credit");
+  const [paymentMethod, setPaymentMethod] = useState("cliq");
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -37,7 +35,6 @@ const Checkout = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  // Autofill form with user data when available
   useEffect(() => {
     if (user) {
       setFormData((prevState) => ({
@@ -60,12 +57,12 @@ const Checkout = () => {
 
   const calculateTax = () => {
     const subtotal = calculateSubtotal();
-    return subtotal * 0.07; // 7% tax
+    return subtotal * 0.07;
   };
 
   const calculateShipping = () => {
     const subtotal = calculateSubtotal();
-    return subtotal > 100 ? 0 : 15; // Free shipping for orders over JOD 100
+    return subtotal > 100 ? 0 : 15;
   };
 
   const calculateTotal = () => {
@@ -94,7 +91,6 @@ const Checkout = () => {
     setIsSubmitting(true);
 
     try {
-      // Prepare order data
       const orderData = {
         items: cart.items.map((item) => ({
           item: item.item._id,
@@ -122,14 +118,12 @@ const Checkout = () => {
         withCredentials: true,
       };
 
-      // Submit order
       const response = await axios.post(
         "http://localhost:5000/api/orders",
         orderData,
         config
       );
 
-      // Clear the cart after successful order
       await clearCart();
 
       toast.success("Order placed successfully!", {
@@ -137,7 +131,6 @@ const Checkout = () => {
         autoClose: 3000,
       });
 
-      // Navigate to order confirmation page
       navigate(`/order-confirmation/${response.data.data._id}`);
     } catch (error) {
       console.error("Error placing order:", error);
@@ -152,25 +145,24 @@ const Checkout = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-        </div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="w-12 h-12 border-4 border-[#f46c00] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (!cart?.items?.length) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-        <div className="bg-white p-8 rounded-lg shadow-md max-w-lg mx-auto">
-          <p className="text-lg mb-6">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="text-center bg-white rounded-2xl shadow-lg p-8 max-w-md">
+          <FaShoppingBag className="w-16 h-16 text-[#f46c00] mx-auto mb-4" />
+          <h1 className="text-3xl font-bold mb-4 text-gray-900">Checkout</h1>
+          <p className="text-gray-600 mb-6">
             Your cart is empty. Add some products before checkout.
           </p>
           <Link
             to="/products"
-            className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-colors"
+            className="inline-block px-6 py-3 bg-[#f46c00] text-white rounded-xl hover:bg-[#d85f00] transition-colors font-semibold"
           >
             Browse Products
           </Link>
@@ -180,278 +172,261 @@ const Checkout = () => {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">Checkout</h1>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Checkout</h1>
+          <p className="text-[#b5b3b3]">Complete your order below</p>
+        </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Left Column - Form */}
-          <div className="lg:w-2/3">
-            <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="lg:col-span-2 space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Shipping Information */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold mb-4 text-gray-700">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
+              >
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">
                   Shipping Information
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="fullName"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Full Name
                     </label>
                     <input
                       type="text"
-                      id="fullName"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Email
                     </label>
                     <input
                       type="email"
-                      id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Phone
                     </label>
                     <input
                       type="tel"
-                      id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="address"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Address
                     </label>
                     <input
                       type="text"
-                      id="address"
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       City
                     </label>
                     <input
                       type="text"
-                      id="city"
                       name="city"
                       value={formData.city}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="state"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       State
                     </label>
                     <input
                       type="text"
-                      id="state"
                       name="state"
                       value={formData.state}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="zipCode"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       ZIP Code
                     </label>
                     <input
                       type="text"
-                      id="zipCode"
                       name="zipCode"
                       value={formData.zipCode}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
                       required
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Payment Method */}
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold mb-4 text-gray-700">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
+              >
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">
                   Payment Method
                 </h2>
 
-                <div className="mb-6">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <input
-                      type="radio"
-                      id="credit"
-                      name="paymentMethod"
-                      value="credit"
-                      checked={paymentMethod === "credit"}
-                      onChange={() => setPaymentMethod("credit")}
-                      className="h-5 w-5 text-purple-600"
-                    />
-                    <label htmlFor="credit" className="text-gray-700">
-                      Credit/Debit Card
-                    </label>
+                <div className="space-y-4">
+                  {/* Cliq Payment */}
+                  <div
+                    onClick={() => setPaymentMethod("cliq")}
+                    className={`relative border-2 rounded-xl p-4 cursor-pointer transition-all ${
+                      paymentMethod === "cliq"
+                        ? "border-[#f46c00] bg-[#f46c00]/5"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <input
+                        type="radio"
+                        id="cliq"
+                        name="paymentMethod"
+                        value="cliq"
+                        checked={paymentMethod === "cliq"}
+                        onChange={() => setPaymentMethod("cliq")}
+                        className="h-5 w-5 text-[#f46c00] mr-3"
+                      />
+                      <label htmlFor="cliq" className="flex-1 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-[#f46c00]/10 rounded-lg flex items-center justify-center">
+                              <FaCreditCard className="text-[#f46c00]" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-900">Cliq</p>
+                              <p className="text-sm text-[#b5b3b3]">Pay using Cliq</p>
+                            </div>
+                          </div>
+                          {paymentMethod === "cliq" && (
+                            <FaCheckCircle className="text-[#f46c00] text-xl" />
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                    {paymentMethod === "cliq" && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        className="mt-4 pt-4 border-t border-gray-200"
+                      >
+                        <div className="bg-gray-50 rounded-xl p-4">
+                          <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Cliq Name
+                          </label>
+                          <div className="bg-white border-2 border-[#f46c00] rounded-lg p-3">
+                            <p className="text-lg font-bold text-[#f46c00]">RamziZamil</p>
+                          </div>
+                          <p className="text-xs text-[#b5b3b3] mt-2">
+                            Please use this Cliq name when making your payment
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
                   </div>
 
-                  <div className="flex items-center space-x-4">
-                    <input
-                      type="radio"
-                      id="cash"
-                      name="paymentMethod"
-                      value="cash"
-                      checked={paymentMethod === "cash"}
-                      onChange={() => setPaymentMethod("cash")}
-                      className="h-5 w-5 text-purple-600"
-                    />
-                    <label htmlFor="cash" className="text-gray-700">
-                      Cash
-                    </label>
+                  {/* Cash Payment */}
+                  <div
+                    onClick={() => setPaymentMethod("cash")}
+                    className={`relative border-2 rounded-xl p-4 cursor-pointer transition-all ${
+                      paymentMethod === "cash"
+                        ? "border-[#f46c00] bg-[#f46c00]/5"
+                        : "border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <input
+                        type="radio"
+                        id="cash"
+                        name="paymentMethod"
+                        value="cash"
+                        checked={paymentMethod === "cash"}
+                        onChange={() => setPaymentMethod("cash")}
+                        className="h-5 w-5 text-[#f46c00] mr-3"
+                      />
+                      <label htmlFor="cash" className="flex-1 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-[#f46c00]/10 rounded-lg flex items-center justify-center">
+                              <FaMoneyBillWave className="text-[#f46c00]" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-900">Cash on Delivery</p>
+                              <p className="text-sm text-[#b5b3b3]">Pay when you receive</p>
+                            </div>
+                          </div>
+                          {paymentMethod === "cash" && (
+                            <FaCheckCircle className="text-[#f46c00] text-xl" />
+                          )}
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
+              </motion.div>
 
-                {paymentMethod === "credit" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="md:col-span-2">
-                      <label
-                        htmlFor="cardName"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Name on Card
-                      </label>
-                      <input
-                        type="text"
-                        id="cardName"
-                        name="cardName"
-                        value={formData.cardName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        required={paymentMethod === "credit"}
-                      />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label
-                        htmlFor="cardNumber"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Card Number
-                      </label>
-                      <input
-                        type="text"
-                        id="cardNumber"
-                        name="cardNumber"
-                        value={formData.cardNumber}
-                        onChange={handleInputChange}
-                        placeholder="XXXX XXXX XXXX XXXX"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        required={paymentMethod === "credit"}
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="expDate"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Expiration Date
-                      </label>
-                      <input
-                        type="text"
-                        id="expDate"
-                        name="expDate"
-                        value={formData.expDate}
-                        onChange={handleInputChange}
-                        placeholder="MM/YY"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        required={paymentMethod === "credit"}
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="cvv"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        CVV
-                      </label>
-                      <input
-                        type="text"
-                        id="cvv"
-                        name="cvv"
-                        value={formData.cvv}
-                        onChange={handleInputChange}
-                        placeholder="XXX"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        required={paymentMethod === "credit"}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-8 lg:hidden">
+              {/* Mobile Order Summary Toggle */}
+              <div className="lg:hidden">
                 <button
                   type="button"
-                  className="w-full bg-gray-100 py-3 px-4 rounded-lg text-gray-700 font-medium mb-4 flex justify-between items-center"
+                  className="w-full bg-white py-4 px-6 rounded-xl text-gray-700 font-semibold mb-4 flex justify-between items-center shadow-md border border-gray-200"
                   onClick={() => setOrderSummaryOpen(!orderSummaryOpen)}
                 >
                   <span>Order Summary ({cart.items.length} items)</span>
-                  <span>JOD {calculateTotal().toFixed(2)}</span>
+                  <span className="text-[#f46c00] font-bold">
+                    JOD {calculateTotal().toFixed(2)}
+                  </span>
                 </button>
 
                 {orderSummaryOpen && (
-                  <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="bg-white rounded-2xl shadow-lg p-6 mb-6"
+                  >
                     <div className="max-h-60 overflow-y-auto mb-4">
                       {cart.items.map((item) => (
                         <div
@@ -461,56 +436,56 @@ const Checkout = () => {
                           <img
                             src={item.item.image}
                             alt={item.item.name}
-                            className="w-16 h-16 object-cover rounded"
+                            className="w-16 h-16 object-cover rounded-lg"
                           />
                           <div className="ml-4 flex-1">
-                            <h4 className="text-sm font-medium">
+                            <h4 className="text-sm font-semibold text-gray-900">
                               {item.item.name}
                             </h4>
-                            <p className="text-gray-600 text-xs">
+                            <p className="text-[#b5b3b3] text-xs">
                               JOD {item.item.pricePerUnit} x {item.quantity}
                             </p>
                           </div>
-                          <p className="font-medium">
-                            JOD{" "}
-                            {(item.item.pricePerUnit * item.quantity).toFixed(
-                              2
-                            )}
+                          <p className="font-bold text-gray-900">
+                            JOD {(item.item.pricePerUnit * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       ))}
                     </div>
 
-                    <div className="space-y-2 text-sm">
+                    <div className="space-y-2 text-sm pt-4 border-t border-gray-200">
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Subtotal</span>
-                        <span>JOD {calculateSubtotal().toFixed(2)}</span>
+                        <span className="text-[#b5b3b3]">Subtotal</span>
+                        <span className="font-semibold">JOD {calculateSubtotal().toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Tax (7%)</span>
-                        <span>JOD {calculateTax().toFixed(2)}</span>
+                        <span className="text-[#b5b3b3]">Tax (7%)</span>
+                        <span className="font-semibold">JOD {calculateTax().toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Shipping</span>
-                        <span>JOD {calculateShipping().toFixed(2)}</span>
+                        <span className="text-[#b5b3b3]">Shipping</span>
+                        <span className="font-semibold">JOD {calculateShipping().toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between font-semibold pt-2 border-t border-gray-200">
+                      <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
                         <span>Total</span>
-                        <span className="text-purple-600">
+                        <span className="text-[#f46c00]">
                           JOD {calculateTotal().toFixed(2)}
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
 
-              <button
+              {/* Submit Button */}
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-medium shadow-md hover:from-blue-600 hover:to-purple-700 transition-colors ${
+                className={`w-full bg-gradient-to-r from-[#f46c00] to-[#ff8c42] text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all ${
                   isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                 }`}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center">
@@ -520,83 +495,82 @@ const Checkout = () => {
                 ) : (
                   `Complete Order - JOD ${calculateTotal().toFixed(2)}`
                 )}
-              </button>
+              </motion.button>
             </form>
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="lg:w-1/3 hidden lg:block">
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">
-                Order Summary
-              </h2>
+          <div className="lg:col-span-1 hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-2xl shadow-lg p-6 sticky top-6 border border-gray-100"
+            >
+              <h2 className="text-2xl font-bold mb-6 text-gray-900">Order Summary</h2>
 
-              <div className="max-h-80 overflow-y-auto mb-6">
+              <div className="max-h-80 overflow-y-auto mb-6 space-y-4">
                 {cart.items.map((item) => (
                   <div
                     key={item.item._id}
-                    className="flex items-center py-3 border-b border-gray-200"
+                    className="flex items-center gap-4 pb-4 border-b border-gray-200"
                   >
                     <img
                       src={item.item.image}
                       alt={item.item.name}
-                      className="w-16 h-16 object-cover rounded"
+                      className="w-16 h-16 object-cover rounded-lg"
                     />
-                    <div className="ml-4 flex-1">
-                      <h4 className="text-sm font-medium">{item.item.name}</h4>
-                      <p className="text-gray-600 text-xs">
+                    <div className="flex-1">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-1">
+                        {item.item.name}
+                      </h4>
+                      <p className="text-[#b5b3b3] text-xs">
                         JOD {item.item.pricePerUnit} x {item.quantity}
                       </p>
                     </div>
-                    <p className="font-medium">
+                    <p className="font-bold text-gray-900">
                       JOD {(item.item.pricePerUnit * item.quantity).toFixed(2)}
                     </p>
                   </div>
                 ))}
               </div>
 
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Subtotal</span>
-                  <span>JOD {calculateSubtotal().toFixed(2)}</span>
+              <div className="space-y-3 pt-4 border-t border-gray-200">
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#b5b3b3]">Subtotal</span>
+                  <span className="font-semibold">JOD {calculateSubtotal().toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Shipping</span>
-                  <span>JOD {calculateShipping().toFixed(2)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#b5b3b3]">Shipping</span>
+                  <span className="font-semibold">JOD {calculateShipping().toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Tax</span>
-                  <span>JOD {calculateTax().toFixed(2)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#b5b3b3]">Tax (7%)</span>
+                  <span className="font-semibold">JOD {calculateTax().toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-lg font-semibold text-gray-900">
-                  <span>Total</span>
-                  <span>JOD {calculateTotal().toFixed(2)}</span>
+                <div className="flex justify-between text-xl font-bold pt-3 border-t border-gray-200">
+                  <span className="text-gray-900">Total</span>
+                  <span className="text-[#f46c00]">JOD {calculateTotal().toFixed(2)}</span>
                 </div>
               </div>
 
-              <div className="mt-6 bg-blue-50 p-4 rounded-lg">
-                <div className="flex items-start">
-                  <svg
-                    className="h-5 w-5 text-blue-500 mt-0.5 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <p className="text-sm text-blue-800">
-                    {calculateShipping() === 0
-                      ? "Your order qualifies for free shipping!"
-                      : `Add JOD ${(100 - calculateSubtotal()).toFixed(
-                          2
-                        )} more to get free shipping.`}
+              {calculateShipping() === 0 ? (
+                <div className="mt-6 bg-[#f46c00]/10 p-4 rounded-xl border border-[#f46c00]/20">
+                  <div className="flex items-start gap-2">
+                    <FaCheckCircle className="text-[#f46c00] mt-0.5" />
+                    <p className="text-sm text-[#f46c00] font-semibold">
+                      Your order qualifies for free shipping!
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-6 bg-gray-50 p-4 rounded-xl">
+                  <p className="text-sm text-[#b5b3b3]">
+                    Add JOD {(100 - calculateSubtotal()).toFixed(2)} more to get free shipping.
                   </p>
                 </div>
-              </div>
-            </div>
+              )}
+            </motion.div>
           </div>
         </div>
       </div>

@@ -28,6 +28,11 @@ export const WishlistProvider = ({ children }) => {
     setWishlistItems(wishlistItems.filter((item) => item.id !== itemId));
   };
 
+  // Clear all items from wishlist
+  const clearWishlist = () => {
+    setWishlistItems([]);
+  };
+
   // Check if item is in wishlist
   const isInWishlist = (itemId) => {
     return wishlistItems.some((item) => item.id === itemId);
@@ -39,6 +44,7 @@ export const WishlistProvider = ({ children }) => {
         wishlistItems,
         addToWishlist,
         removeFromWishlist,
+        clearWishlist,
         isInWishlist,
       }}
     >

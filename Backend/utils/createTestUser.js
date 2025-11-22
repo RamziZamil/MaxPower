@@ -12,7 +12,7 @@ const createTestUser = async () => {
         // Create a test user
         const testUser = await User.create({
             name: 'Test Admin',
-            email: 'testadmin@freedomroad.com',
+            email: 'testadmin@maxpower.com',
             password: 'Test@123456',
             phoneNumber: '+966501234567',
             address: 'Test Address',

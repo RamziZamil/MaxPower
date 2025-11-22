@@ -41,7 +41,7 @@ const Navbar = () => {
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      className: "freedom-toast", // Custom class for additional styling
+      className: "maxpower-toast", // Custom class for additional styling
       style: {
         background: "linear-gradient(135deg, #EA7300, #F16767)", // Blue-500 to Purple-600 gradient
         color: "#FFFFFF", // White text for contrast
@@ -79,7 +79,7 @@ const Navbar = () => {
       className={`transition-all duration-300 sticky top-0 z-50 ${
         scrolled
           ? "bg-white text-gray-900 shadow-md"
-          : "bg-gradient-to-r from-blue-400 to-purple-500 text-white"
+          : "bg-[#f46c00] text-white"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,10 +89,13 @@ const Navbar = () => {
             <Link to="/" className="flex items-center">
               <span
                 className={`text-2xl font-extrabold ${
-                  scrolled ? "text-indigo-700" : "text-white"
+                  scrolled ? "text-[#f46c00]" : "text-white"
                 }`}
               >
-                Freedom<span className="text-pink-400">Road</span>
+                Max
+                <span className={scrolled ? "text-[#b5b3b3]" : "text-white/90"}>
+                  Power
+                </span>
               </span>
             </Link>
           </div>
@@ -111,8 +114,8 @@ const Navbar = () => {
                     }
                     className={`px-4 py-2 mx-1 text-sm font-medium rounded-full transition-all duration-200 ${
                       scrolled
-                        ? "hover:bg-indigo-100 hover:text-indigo-700"
-                        : "hover:bg-white/10 hover:text-pink-300"
+                        ? "hover:bg-[#f46c00]/10 hover:text-[#f46c00]"
+                        : "hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     {item}
@@ -129,16 +132,20 @@ const Navbar = () => {
                 <Link to="/userprofile">
                   <div
                     className={`rounded-full p-2 ${
-                      scrolled ? "hover:bg-indigo-100" : "hover:bg-white/10"
+                      scrolled ? "hover:bg-[#f46c00]/10" : "hover:bg-white/10"
                     }`}
                   >
-                    <FaUser className="text-xl cursor-pointer" />
+                    <FaUser
+                      className={`text-xl cursor-pointer ${
+                        scrolled ? "text-[#f46c00]" : "text-white"
+                      }`}
+                    />
                   </div>
                 </Link>
                 <Link to="/cart">
                   <div
                     className={`rounded-full p-2 ${
-                      scrolled ? "hover:bg-indigo-100" : "hover:bg-white/10"
+                      scrolled ? "hover:bg-[#f46c00]/10" : "hover:bg-white/10"
                     }`}
                   >
                     <CartIcon />
@@ -147,14 +154,18 @@ const Navbar = () => {
                 <div
                   onClick={handleWishlistClick}
                   className={`rounded-full p-2 cursor-pointer ${
-                    scrolled ? "hover:bg-indigo-100" : "hover:bg-white/10"
+                    scrolled ? "hover:bg-[#f46c00]/10" : "hover:bg-white/10"
                   }`}
                 >
-                  <FaHeart className="text-xl" />
+                  <FaHeart
+                    className={`text-xl ${
+                      scrolled ? "text-[#f46c00]" : "text-white"
+                    }`}
+                  />
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-full text-white text-sm font-medium transition-colors duration-200"
+                  className="bg-[#ff9f51] hover:bg-[#d85f00] px-4 py-2 rounded-full text-white text-sm font-medium transition-colors duration-200"
                 >
                   Logout
                 </button>
@@ -165,8 +176,8 @@ const Navbar = () => {
                   to="/login"
                   className={`px-5 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                     scrolled
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                      : "bg-pink-500 text-white hover:bg-pink-400"
+                      ? "bg-[#f46c00] text-white hover:bg-[#d85f00]"
+                      : "bg-white text-[#f46c00] hover:bg-white/90"
                   }`}
                 >
                   Login
@@ -175,8 +186,8 @@ const Navbar = () => {
                   to="/signup"
                   className={`px-5 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
                     scrolled
-                      ? "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-                      : "border border-white hover:bg-white hover:text-indigo-900"
+                      ? "border border-[#f46c00] text-[#f46c00] hover:bg-[#f46c00] hover:text-white"
+                      : "border border-white hover:bg-white hover:text-[#f46c00]"
                   }`}
                 >
                   Sign Up
@@ -191,8 +202,8 @@ const Navbar = () => {
               type="button"
               className={`rounded-md p-2 ${
                 scrolled
-                  ? "text-gray-700 hover:bg-gray-100"
-                  : "text-gray-100 hover:bg-white/10"
+                  ? "text-[#f46c00] hover:bg-[#f46c00]/10"
+                  : "text-white hover:bg-white/10"
               } focus:outline-none`}
               onClick={() => setIsOpen(!isOpen)}
             >
@@ -228,7 +239,7 @@ const Navbar = () => {
       {isOpen && (
         <div
           className={`lg:hidden ${
-            scrolled ? "bg-white text-gray-900" : "bg-indigo-900 text-white"
+            scrolled ? "bg-white text-gray-900" : "bg-[#f46c00] text-white"
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -243,8 +254,8 @@ const Navbar = () => {
                   }
                   className={`block px-3 py-3 text-base font-medium rounded-lg ${
                     scrolled
-                      ? "text-gray-900 hover:bg-gray-100"
-                      : "text-white hover:bg-indigo-800"
+                      ? "text-gray-900 hover:bg-[#f46c00]/10"
+                      : "text-white hover:bg-white/10"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -253,12 +264,18 @@ const Navbar = () => {
               )
             )}
 
-            <div className="pt-4 pb-2 border-t border-gray-500">
+            <div
+              className={`pt-4 pb-2 border-t ${
+                scrolled ? "border-[#b5b3b3]" : "border-white/20"
+              }`}
+            >
               {isAuthenticated ? (
                 <>
                   <Link
                     to="/userprofile"
-                    className="flex items-center px-3 py-2"
+                    className={`flex items-center px-3 py-2 ${
+                      scrolled ? "text-gray-900" : "text-white"
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
                     <FaUser className="text-xl mr-3" />
@@ -268,7 +285,9 @@ const Navbar = () => {
                     <Link to="/cart">
                       <div
                         className={`rounded-full p-2 ${
-                          scrolled ? "hover:bg-indigo-100" : "hover:bg-white/10"
+                          scrolled
+                            ? "hover:bg-[#f46c00]/10"
+                            : "hover:bg-white/10"
                         }`}
                       >
                         <CartIcon />
@@ -276,7 +295,9 @@ const Navbar = () => {
                     </Link>
                   </div>
                   <div
-                    className="flex items-center px-3 py-2 cursor-pointer"
+                    className={`flex items-center px-3 py-2 cursor-pointer ${
+                      scrolled ? "text-gray-900" : "text-white"
+                    }`}
                     onClick={() => {
                       handleWishlistClick();
                       setIsOpen(false);
@@ -287,7 +308,7 @@ const Navbar = () => {
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="mt-2 w-full bg-red-500 hover:bg-red-600 px-3 py-3 rounded-lg text-white text-base font-medium"
+                    className="mt-2 w-full bg-[#f46c00] hover:bg-[#d85f00] px-3 py-3 rounded-lg text-white text-base font-medium"
                   >
                     Logout
                   </button>
@@ -296,7 +317,7 @@ const Navbar = () => {
                 <div className="flex flex-col space-y-2">
                   <Link
                     to="/login"
-                    className="w-full bg-pink-500 hover:bg-pink-600 px-3 py-3 rounded-lg text-white text-center text-base font-medium"
+                    className="w-full bg-[#f46c00] hover:bg-[#d85f00] px-3 py-3 rounded-lg text-white text-center text-base font-medium"
                     onClick={() => setIsOpen(false)}
                   >
                     Login
@@ -305,8 +326,8 @@ const Navbar = () => {
                     to="/signup"
                     className={`w-full px-3 py-3 rounded-lg text-center text-base font-medium ${
                       scrolled
-                        ? "border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-                        : "border border-white text-white hover:bg-white hover:text-indigo-900"
+                        ? "border border-[#f46c00] text-[#f46c00] hover:bg-[#f46c00] hover:text-white"
+                        : "border border-white text-white hover:bg-white hover:text-[#f46c00]"
                     }`}
                     onClick={() => setIsOpen(false)}
                   >

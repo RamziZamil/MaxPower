@@ -44,7 +44,7 @@ function Login() {
         timer: 1500,
         showConfirmButton: false,
         background: "#ffffff",
-        iconColor: "#798cff",
+        iconColor: "#f46c00",
         titleColor: "#1e293b",
         textColor: "#475569",
         customClass: { popup: "rounded-lg shadow-xl" },
@@ -85,8 +85,8 @@ function Login() {
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-sm bg-white rounded-xl shadow-lg p-6">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-[#7141fc]">
-              Freedom<span className="text-[#fb64b6]">Road</span>
+            <h2 className="text-2xl font-bold text-[#f46c00]">
+              Max<span className="text-gray-700">Power</span>
             </h2>
             <p className="text-sm text-gray-500 mt-1">
               Sign in to your account
@@ -113,14 +113,14 @@ function Login() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="peer bg-white border border-gray-300 text-gray-900 placeholder-transparent text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  className="peer bg-white border border-gray-300 text-gray-900 placeholder-transparent text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#f46c00] focus:border-transparent"
                   placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <label
                   htmlFor="email-address"
-                  className="absolute text-xs text-gray-500 duration-150 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
+                  className="absolute text-xs text-gray-500 duration-150 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-[#f46c00] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
                 >
                   Email address
                 </label>
@@ -135,14 +135,14 @@ function Login() {
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   required
-                  className="peer bg-white border border-gray-300 text-gray-900 placeholder-transparent text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+                  className="peer bg-white border border-gray-300 text-gray-900 placeholder-transparent text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-[#f46c00] focus:border-transparent"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <label
                   htmlFor="password"
-                  className="absolute text-xs text-gray-500 duration-150 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-indigo-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
+                  className="absolute text-xs text-gray-500 duration-150 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-[#f46c00] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
                 >
                   Password
                 </label>
@@ -189,7 +189,7 @@ function Login() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-600"
+                  className="h-4 w-4 border-gray-300 rounded text-[#f46c00] focus:ring-[#f46c00]"
                 />
                 <label
                   htmlFor="remember-me"
@@ -200,7 +200,7 @@ function Login() {
               </div>
               <a
                 href="#"
-                className="text-xs font-medium text-purple-500 hover:text-purple-600"
+                className="text-xs font-medium text-[#f46c00] hover:text-[#d85f00]"
               >
                 Forgot password?
               </a>
@@ -209,7 +209,7 @@ function Login() {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition duration-150 shadow"
+                className="w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-[#f46c00] to-[#ff8c42] hover:from-[#d85f00] hover:to-[#f46c00] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f46c00] transition duration-150 shadow"
               >
                 Sign In
               </button>
@@ -221,7 +221,7 @@ function Login() {
               Don't have an account?{" "}
               <a
                 href="./signup"
-                className="font-medium text-purple-500 hover:text-purple-600"
+                className="font-medium text-orange-500 hover:text-orange-600"
               >
                 Sign up
               </a>
@@ -249,18 +249,18 @@ function Login() {
         />
 
         {/* Gradient overlay with stronger opacity for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/70 via-purple-800/70 to-indigo-600/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800/70 via-gray-700/70 to-gray-800/80"></div>
 
         {/* Decorative elements */}
         <div className="absolute inset-0">
           {/* Top right decorative circle */}
-          <div className="absolute -top-20 -right-20 w-64 h-64 bg-pink-500/30 rounded-full blur-xl"></div>
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#f46c00]/30 rounded-full blur-xl"></div>
 
           {/* Bottom left decorative circle */}
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-indigo-300/30 rounded-full blur-lg"></div>
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#f46c00]/20 rounded-full blur-lg"></div>
 
           {/* Middle decorative element */}
-          <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-purple-400/20 rounded-full blur-lg"></div>
+          <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-[#f46c00]/20 rounded-full blur-lg"></div>
         </div>
 
         {/* Content box with improved visibility */}
@@ -268,7 +268,7 @@ function Login() {
           <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 max-w-md border border-white/20 shadow-2xl">
             {/* Logo/Icon section */}
             <div className="flex items-center justify-center mb-6">
-              <div className="p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full shadow-lg">
+              <div className="p-3 bg-gradient-to-br from-[#f46c00] to-[#ff8c42] rounded-full shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8 text-white"
@@ -289,7 +289,7 @@ function Login() {
             {/* Headline with improved contrast */}
             <h1 className="text-4xl font-bold mb-4 text-white text-center drop-shadow-md">
               Design Your{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-indigo-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f46c00] to-[#ff8c42]">
                 Dream Space
               </span>
             </h1>
@@ -303,7 +303,7 @@ function Login() {
             {/* Feature points with icons for better visual appeal */}
             <div className="space-y-4 mb-6">
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-purple-500/30 flex items-center justify-center">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-[#f46c00]/30 flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-white"
@@ -325,7 +325,7 @@ function Login() {
               </div>
 
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-500/30 flex items-center justify-center">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-[#f46c00]/30 flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-white"
@@ -347,7 +347,7 @@ function Login() {
               </div>
 
               <div className="flex items-center">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-pink-500/30 flex items-center justify-center">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-[#f46c00]/30 flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4 text-white"
@@ -371,9 +371,9 @@ function Login() {
 
             {/* Decorative divider */}
             <div className="flex justify-center space-x-2 mb-2">
-              <div className="h-1 w-12 bg-indigo-400 rounded-full"></div>
-              <div className="h-1 w-8 bg-purple-400 rounded-full"></div>
-              <div className="h-1 w-4 bg-pink-400 rounded-full"></div>
+              <div className="h-1 w-12 bg-[#f46c00] rounded-full"></div>
+              <div className="h-1 w-8 bg-[#ff8c42] rounded-full"></div>
+              <div className="h-1 w-4 bg-[#f46c00] rounded-full"></div>
             </div>
           </div>
         </div>

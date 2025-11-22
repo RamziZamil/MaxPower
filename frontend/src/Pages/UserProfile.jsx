@@ -15,6 +15,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import { FaEdit, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 const EditModal = ({
   formData,
@@ -25,35 +26,23 @@ const EditModal = ({
   loading,
   onClose,
 }) => (
-  <div className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50">
+  <div className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50 p-4">
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl m-4"
+      className="bg-white rounded-2xl w-full max-w-md shadow-2xl"
     >
-      {/* Modal header */}
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 mr-3 text-indigo-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-          />
-        </svg>
-        Edit Profile
-      </h2>
+      <div className="p-6 border-b border-gray-200">
+        <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <FaEdit className="text-[#f46c00]" />
+          Edit Profile
+        </h2>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="p-6 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Name *
           </label>
           <input
@@ -61,34 +50,18 @@ const EditModal = ({
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className={`w-full p-3 border rounded-lg ${
+            className={`w-full p-3 border rounded-xl ${
               formErrors.name ? "border-red-500" : "border-gray-300"
-            } focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
+            } focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all`}
             placeholder="Enter your name"
           />
           {formErrors.name && (
-            <p className="text-red-500 text-sm mt-1 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-              {formErrors.name}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Address
           </label>
           <input
@@ -96,13 +69,13 @@ const EditModal = ({
             name="address"
             value={formData.address}
             onChange={handleInputChange}
-            className="w-full p-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            className="w-full p-3 border rounded-xl border-gray-300 focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all"
             placeholder="Enter your address"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Phone Number
           </label>
           <input
@@ -110,34 +83,18 @@ const EditModal = ({
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            className={`w-full p-3 border rounded-lg ${
+            className={`w-full p-3 border rounded-xl ${
               formErrors.phoneNumber ? "border-red-500" : "border-gray-300"
-            } focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
+            } focus:ring-2 focus:ring-[#f46c00] focus:border-transparent transition-all`}
             placeholder="Enter your phone number"
           />
           {formErrors.phoneNumber && (
-            <p className="text-red-500 text-sm mt-1 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-              {formErrors.phoneNumber}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{formErrors.phoneNumber}</p>
           )}
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Profile Picture
           </label>
           <div className="mt-1 flex flex-col space-y-2">
@@ -151,69 +108,32 @@ const EditModal = ({
               />
               <label
                 htmlFor="profile-upload"
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer inline-flex items-center transition-colors"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 cursor-pointer inline-flex items-center transition-colors"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2 text-indigo-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
+                <FaEdit className="h-4 w-4 mr-2 text-[#f46c00]" />
                 Choose File
               </label>
               <span className="text-sm text-gray-500 truncate max-w-xs">
                 {formData.image ? formData.image.name : "No file chosen"}
               </span>
             </div>
-            {formData.image && (
-              <div className="bg-gray-100 p-2 rounded-lg">
-                <div className="text-xs text-gray-500 mb-1">Selected file:</div>
-                <div className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-green-500 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium truncate">
-                    {formData.image.name}
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-8">
+        <div className="flex justify-end gap-3 pt-4">
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors border border-gray-200 font-medium"
+            className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-70 font-medium shadow-md disabled:shadow-none relative overflow-hidden"
+            className="px-5 py-2.5 bg-[#f46c00] text-white rounded-xl hover:bg-[#d85f00] transition-colors disabled:opacity-70 font-medium shadow-md relative overflow-hidden"
           >
-            <span className={`${loading ? "opacity-0" : "opacity-100"}`}>
+            <span className={loading ? "opacity-0" : "opacity-100"}>
               Save Changes
             </span>
             {loading && (
@@ -247,7 +167,6 @@ const EditModal = ({
   </div>
 );
 
-// Order Card Component
 const getStatusColor = (status) => {
   switch (status) {
     case "delivered":
@@ -257,7 +176,7 @@ const getStatusColor = (status) => {
     case "processing":
       return "bg-blue-100 text-blue-800";
     case "shipped":
-      return "bg-purple-100 text-purple-800";
+      return "bg-[#f46c00]/10 text-[#f46c00]";
     case "cancelled":
       return "bg-red-100 text-red-800";
     default:
@@ -269,21 +188,22 @@ const OrderCard = ({ order }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+    className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all"
+    whileHover={{ y: -5 }}
   >
     <div className="p-6">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <p className="text-sm text-gray-500 flex items-center gap-2">
+          <p className="text-sm text-[#b5b3b3] flex items-center gap-2 mb-1">
             <Calendar className="w-4 h-4" />
             {new Date(order.createdAt).toLocaleDateString()}
           </p>
-          <h3 className="text-lg font-semibold text-gray-900 mt-1">
+          <h3 className="text-lg font-bold text-gray-900">
             Order #{order._id.slice(-6)}
           </h3>
         </div>
         <span
-          className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
             order.status
           )}`}
         >
@@ -291,13 +211,13 @@ const OrderCard = ({ order }) => (
         </span>
       </div>
 
-      <div className="space-y-2">
-        <p className="text-gray-600 flex items-center gap-2">
+      <div className="space-y-2 mb-4">
+        <p className="text-gray-600 flex items-center gap-2 text-sm">
           <Package className="w-4 h-4" />
           {order.items?.length || 0} items
         </p>
         {order.estimatedDelivery && (
-          <p className="text-gray-600 flex items-center gap-2">
+          <p className="text-gray-600 flex items-center gap-2 text-sm">
             <Clock className="w-4 h-4" />
             Estimated delivery:{" "}
             {new Date(order.estimatedDelivery).toLocaleDateString()}
@@ -305,8 +225,8 @@ const OrderCard = ({ order }) => (
         )}
       </div>
 
-      <div className="mt-4 flex justify-between items-center">
-        <p className="text-lg font-bold text-gray-900">
+      <div className="pt-4 border-t border-gray-100">
+        <p className="text-xl font-bold text-[#f46c00]">
           JOD {order.total?.toFixed(2) || "0.00"}
         </p>
       </div>
@@ -331,6 +251,17 @@ const UserProfile = () => {
   const [ordersLoading, setOrdersLoading] = useState(true);
 
   useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        address: user.address || "",
+        phoneNumber: user.phoneNumber || "",
+        image: null,
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (!user) {
       fetchUserProfile();
     } else {
@@ -349,14 +280,11 @@ const UserProfile = () => {
         }
       );
 
-      console.log("Orders response:", response.data); // Debug log
-
       if (response.data && Array.isArray(response.data.data)) {
         setOrders(response.data.data);
       } else if (response.data && Array.isArray(response.data)) {
         setOrders(response.data);
       } else {
-        console.error("Unexpected orders data format:", response.data);
         setOrders([]);
       }
     } catch (error) {
@@ -378,7 +306,6 @@ const UserProfile = () => {
         }
       );
 
-      console.log("Profile API response:", response.data);
       const userData = response.data.user || response.data;
       const token = localStorage.getItem("token");
       if (token) {
@@ -397,7 +324,6 @@ const UserProfile = () => {
     if (!formData.name.trim()) {
       errors.name = "Name is required";
     }
-
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -447,7 +373,7 @@ const UserProfile = () => {
       }
 
       if ([...formDataToSend.entries()].length > 0) {
-        const response = await axios.put(
+        await axios.put(
           `http://localhost:5000/api/users/${user._id}`,
           formDataToSend,
           {
@@ -458,10 +384,6 @@ const UserProfile = () => {
           }
         );
 
-        // Get the updated user data
-        const updatedUser = response.data.user;
-
-        // Update the auth context with the new user data
         const token = localStorage.getItem("token");
         if (token) {
           await login(token);
@@ -487,13 +409,6 @@ const UserProfile = () => {
         });
       }
     } catch (error) {
-      console.error("Update error details:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-        serverError: error.response?.data?.error,
-      });
-
       await Swal.fire({
         icon: "error",
         title: "Update Failed",
@@ -509,57 +424,25 @@ const UserProfile = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#f46c00] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
-  if (error) {
+  if (error && !user) {
     return (
-      <div className="max-w-2xl mx-auto p-8 mt-10 bg-white rounded-lg shadow-lg">
-        <div className="bg-red-50 p-6 rounded-lg border border-red-100 mb-6">
-          <div className="flex items-center mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-red-500 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <h3 className="text-lg font-semibold text-red-700">
-              Error Loading Profile
-            </h3>
-          </div>
-          <p className="text-red-600 ml-11 mb-4">{error}</p>
-          <div className="flex justify-center mt-2">
-            <button
-              onClick={fetchUserProfile}
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-md flex items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
-              Try Again
-            </button>
-          </div>
+      <div className="max-w-2xl mx-auto p-8 mt-10">
+        <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
+          <h3 className="text-lg font-semibold text-red-700 mb-2">
+            Error Loading Profile
+          </h3>
+          <p className="text-red-600 mb-4">{error}</p>
+          <button
+            onClick={fetchUserProfile}
+            className="bg-[#f46c00] text-white px-6 py-3 rounded-xl hover:bg-[#d85f00] transition-colors"
+          >
+            Try Again
+          </button>
         </div>
       </div>
     );
@@ -567,52 +450,20 @@ const UserProfile = () => {
 
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto p-8 mt-10 bg-white rounded-lg shadow-lg">
-        <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-100 mb-6">
-          <div className="flex items-center mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-yellow-500 mr-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-            <h3 className="text-lg font-semibold text-yellow-700">
-              No Profile Data
-            </h3>
-          </div>
-          <p className="text-yellow-600 ml-11 mb-4">
+      <div className="max-w-2xl mx-auto p-8 mt-10">
+        <div className="bg-yellow-50 p-6 rounded-2xl border border-yellow-100">
+          <h3 className="text-lg font-semibold text-yellow-700 mb-2">
+            No Profile Data
+          </h3>
+          <p className="text-yellow-600 mb-4">
             No user data is currently available
           </p>
-          <div className="flex justify-center mt-2">
-            <button
-              onClick={fetchUserProfile}
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-md flex items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
-              Retry Fetching Profile
-            </button>
-          </div>
+          <button
+            onClick={fetchUserProfile}
+            className="bg-[#f46c00] text-white px-6 py-3 rounded-xl hover:bg-[#d85f00] transition-colors"
+          >
+            Retry Fetching Profile
+          </button>
         </div>
       </div>
     );
@@ -621,78 +472,96 @@ const UserProfile = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col md:flex-row items-center gap-8">
+      <section className="relative bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 text-white py-16 px-4 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-10 w-64 h-64 bg-[#f46c00]/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-48 h-48 bg-[#f46c00]/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto max-w-6xl relative z-10">
+          <motion.div
+            className="flex flex-col md:flex-row items-center gap-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="relative">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-xl">
+              <motion.div
+                className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
                 <img
                   src={user?.image || "https://via.placeholder.com/200"}
                   alt={user?.name}
                   className="w-full h-full object-cover"
                 />
-              </div>
-              <button
+              </motion.div>
+              <motion.button
                 onClick={() => setIsModalOpen(true)}
-                className="absolute bottom-0 right-0 bg-white text-indigo-600 p-2 rounded-full shadow-lg hover:bg-indigo-50 transition-colors"
+                className="absolute bottom-0 right-0 bg-[#f46c00] text-white p-3 rounded-full shadow-lg hover:bg-[#d85f00] transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <Edit3 className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
 
-            <div className="text-center md:text-left">
-              <h1 className="text-3xl font-bold mb-2">{user?.name}</h1>
-              <div className="flex flex-col md:flex-row gap-4 text-indigo-100">
+            <div className="text-center md:text-left flex-1">
+              <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+                {user?.name}
+              </h1>
+              <div className="flex flex-col md:flex-row gap-4 text-gray-300">
                 {user?.email && (
                   <span className="flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
+                    <FaEnvelope className="w-4 h-4" />
                     {user.email}
                   </span>
                 )}
                 {user?.phoneNumber && (
                   <span className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
+                    <FaPhone className="w-4 h-4" />
                     {user.phoneNumber}
                   </span>
                 )}
                 {user?.address && (
                   <span className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
+                    <FaMapMarkerAlt className="w-4 h-4" />
                     {user.address}
                   </span>
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12 max-w-6xl">
         <Tab.Group selectedIndex={selectedTab} onChange={setSelectedTab}>
-          <Tab.List className="flex space-x-1 rounded-xl bg-white p-1 shadow-md mb-8">
+          <Tab.List className="flex space-x-2 rounded-2xl bg-white p-2 shadow-md mb-8">
             <Tab
               className={({ selected }) =>
-                `w-full rounded-lg py-3 text-sm font-medium leading-5 transition-colors
+                `flex-1 rounded-xl py-3 text-sm font-semibold transition-all
                 ${
                   selected
-                    ? "bg-indigo-600 text-white shadow"
-                    : "text-gray-600 hover:bg-indigo-50"
+                    ? "bg-[#f46c00] text-white shadow-lg"
+                    : "text-gray-600 hover:bg-[#f46c00]/10"
                 }`
               }
             >
               <div className="flex items-center justify-center gap-2">
-                <User className="w-4 h-4" />
+                <FaUser className="w-4 h-4" />
                 Profile
               </div>
             </Tab>
             <Tab
               className={({ selected }) =>
-                `w-full rounded-lg py-3 text-sm font-medium leading-5 transition-colors
+                `flex-1 rounded-xl py-3 text-sm font-semibold transition-all
                 ${
                   selected
-                    ? "bg-indigo-600 text-white shadow"
-                    : "text-gray-600 hover:bg-indigo-50"
+                    ? "bg-[#f46c00] text-white shadow-lg"
+                    : "text-gray-600 hover:bg-[#f46c00]/10"
                 }`
               }
             >
@@ -706,63 +575,76 @@ const UserProfile = () => {
           <Tab.Panels>
             {/* Profile Panel */}
             <Tab.Panel>
-              <div className="bg-white rounded-2xl shadow-md p-6">
-                <h2 className="text-2xl font-bold mb-6">Profile Information</h2>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8"
+              >
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-3xl font-bold text-gray-900">
+                    Profile Information
+                  </h2>
+                  <motion.button
+                    onClick={() => setIsModalOpen(true)}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#f46c00] text-white rounded-xl hover:bg-[#d85f00] transition-colors font-semibold shadow-md"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaEdit className="w-4 h-4" />
+                    Edit Profile
+                  </motion.button>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <label className="block text-sm font-semibold text-[#b5b3b3] mb-2 uppercase tracking-wide">
                       Name
                     </label>
-                    <p className="text-gray-900">{user?.name}</p>
+                    <p className="text-lg font-bold text-gray-900">{user?.name}</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <label className="block text-sm font-semibold text-[#b5b3b3] mb-2 uppercase tracking-wide">
                       Email
                     </label>
-                    <p className="text-gray-900">{user?.email}</p>
+                    <p className="text-lg font-bold text-gray-900">{user?.email}</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <label className="block text-sm font-semibold text-[#b5b3b3] mb-2 uppercase tracking-wide">
                       Phone Number
                     </label>
-                    <p className="text-gray-900">
+                    <p className="text-lg font-bold text-gray-900">
                       {user?.phoneNumber || "Not provided"}
                     </p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <div className="bg-gray-50 rounded-xl p-6">
+                    <label className="block text-sm font-semibold text-[#b5b3b3] mb-2 uppercase tracking-wide">
                       Address
                     </label>
-                    <p className="text-gray-900">
+                    <p className="text-lg font-bold text-gray-900">
                       {user?.address || "Not provided"}
                     </p>
                   </div>
                 </div>
-                <div className="mt-8">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                    Edit Profile
-                  </button>
-                </div>
-              </div>
+              </motion.div>
             </Tab.Panel>
 
             {/* Orders Panel */}
             <Tab.Panel>
-              <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6"
+              >
                 {ordersLoading ? (
-                  <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading orders...</p>
+                  <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#f46c00] mx-auto"></div>
+                    <p className="mt-4 text-gray-600 font-medium">Loading orders...</p>
                   </div>
                 ) : error ? (
-                  <div className="text-center py-12 bg-white rounded-2xl shadow-md">
+                  <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
                     <div className="text-red-500 mb-4">
                       <svg
-                        className="w-12 h-12 mx-auto"
+                        className="w-16 h-16 mx-auto"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -775,13 +657,13 @@ const UserProfile = () => {
                         />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
                       Error Loading Orders
                     </h3>
-                    <p className="text-gray-600 mb-4">{error}</p>
+                    <p className="text-gray-600 mb-6">{error}</p>
                     <button
                       onClick={fetchUserOrders}
-                      className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                      className="inline-flex items-center px-6 py-3 bg-[#f46c00] text-white rounded-xl hover:bg-[#d85f00] transition-colors font-semibold"
                     >
                       Try Again
                     </button>
@@ -793,17 +675,19 @@ const UserProfile = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-12 bg-white rounded-2xl shadow-md">
-                    <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <div className="text-center py-16 bg-white rounded-2xl shadow-lg">
+                    <div className="w-20 h-20 bg-[#f46c00]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Package className="w-10 h-10 text-[#f46c00]" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
                       No Orders Yet
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-[#b5b3b3] text-lg">
                       When you make your first order, it will appear here.
                     </p>
                   </div>
                 )}
-              </div>
+              </motion.div>
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

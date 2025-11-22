@@ -126,7 +126,7 @@ const AdminLayout = ({ children }) => {
               <FaBars className="h-6 w-6" />
             )}
           </button>
-          <h1 className="text-xl font-bold text-gray-800 ml-4">Freedom Road</h1>
+          <h1 className="text-xl font-bold text-gray-800 ml-4">Max Power</h1>
         </div>
 
         {/* Overlay */}
@@ -163,7 +163,7 @@ const AdminLayout = ({ children }) => {
               transition={{ delay: 0.2 }}
               className="text-2xl font-bold text-gray-800"
             >
-              Freedom Road
+              Max Power
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
@@ -202,7 +202,7 @@ const AdminLayout = ({ children }) => {
         {/* Sidebar for desktop/laptop */}
         <div className="hidden lg:block lg:static lg:inset-y-0 lg:left-0 lg:w-64 lg:bg-white lg:shadow-lg lg:z-0">
           <div className="p-6">
-            <h1 className="text-2xl font-bold text-gray-800">Freedom Road</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Max Power</h1>
             <p className="text-sm text-gray-500 mt-1">{user?.email}</p>
           </div>
           <nav className="mt-6">
