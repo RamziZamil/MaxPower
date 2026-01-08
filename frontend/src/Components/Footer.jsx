@@ -34,8 +34,8 @@ const footerLinks = [
       { name: "FAQ", to: "/contact" },
       { name: "Shipping & Returns", to: "/contact" },
       { name: "Contact Us", to: "/contact" },
-      { name: "Terms & Conditions", to: "/contact" },
-      { name: "Privacy Policy", to: "/contact" },
+      { name: "Terms & Conditions", to: "/terms-and-conditions" },
+      { name: "Privacy Policy", to: "/privacy-policy" },
     ],
   },
 ];

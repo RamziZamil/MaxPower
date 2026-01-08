@@ -18,8 +18,18 @@ router.get("/:id", getItem);
 
 // Protected routes (Admin only)
 router.use(protect);
-router.post("/", authorize("admin"), upload.single("image"), createItem);
-router.put("/:id", authorize("admin"), upload.single("image"), updateItem);
+router.post(
+  "/",
+  authorize("admin"),
+  upload.array("images", 5),
+  createItem
+);
+router.put(
+  "/:id",
+  authorize("admin"),
+  upload.array("images", 5),
+  updateItem
+);
 router.delete("/:id", authorize("admin"), deleteItem);
 
 module.exports = router;

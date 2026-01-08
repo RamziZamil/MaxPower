@@ -56,8 +56,7 @@ const ProductForm = ({
       </div>
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Column */}
+        <div className="grid grid-cols-1 gap-6">
           <div className="space-y-4">
             {/* Name */}
             <div>
@@ -136,96 +135,31 @@ const ProductForm = ({
             {/* Image */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Product Image
+                Product Images
               </label>
               <div className="flex flex-col space-y-2">
                 <label className="flex-1 px-4 py-3 bg-indigo-50 text-indigo-600 rounded-lg cursor-pointer hover:bg-indigo-100 transition-colors flex items-center justify-center border border-dashed border-indigo-300">
                   <FaImage className="mr-2" />
-                  {formData.image ? "Change Image" : "Upload Image"}
+                  {formData.images && formData.images.length > 0
+                    ? "Change Images"
+                    : "Upload Images"}
                   <input
-                    name="image"
+                    name="images"
                     type="file"
                     accept="image/*"
+                    multiple
                     onChange={onImageChange}
                     className="hidden"
                   />
                 </label>
-                {formData.image && (
+                {formData.images && formData.images.length > 0 && (
                   <span className="text-sm text-gray-600 flex items-center">
                     <FaImage className="mr-2 text-indigo-500" />{" "}
-                    {formData.image.name}
+                    {formData.images.length === 1
+                      ? formData.images[0].name
+                      : `${formData.images.length} images selected`}
                   </span>
                 )}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-4">
-            {/* Product Specifications */}
-            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-800 mb-3">
-                Product Specifications
-              </h3>
-
-              {/* Size */}
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Size
-                </label>
-                <input
-                  name="size"
-                  value={formData.size}
-                  onChange={onInputChange}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Thickness */}
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Thickness (mm)
-                </label>
-                <input
-                  name="thickness"
-                  type="number"
-                  value={formData.thickness}
-                  onChange={onInputChange}
-                  step="0.1"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Weight */}
-              <div className="mb-3">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Weight (kg)
-                </label>
-                <input
-                  name="weight"
-                  type="number"
-                  value={formData.weight}
-                  onChange={onInputChange}
-                  step="0.01"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Material Type */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Material Type
-                </label>
-                <input
-                  name="materialType"
-                  value={formData.materialType}
-                  onChange={onInputChange}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-                  required
-                />
               </div>
             </div>
           </div>
@@ -273,13 +207,9 @@ const Products = () => {
     name: "",
     description: "",
     pricePerUnit: "",
-    size: "",
-    thickness: "",
-    weight: "",
-    materialType: "",
     stockQuantity: "",
     category: "",
-    image: null,
+    images: [],
   });
 
   useEffect(() => {
@@ -317,7 +247,8 @@ const Products = () => {
   };
 
   const handleImageChange = (e) => {
-    setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
+    const files = Array.from(e.target.files || []);
+    setFormData((prev) => ({ ...prev, images: files }));
   };
 
   const handleCancel = () => {
@@ -327,13 +258,9 @@ const Products = () => {
       name: "",
       description: "",
       pricePerUnit: "",
-      size: "",
-      thickness: "",
-      weight: "",
-      materialType: "",
       stockQuantity: "",
       category: "",
-      image: null,
+      images: [],
     });
   };
 
@@ -342,8 +269,10 @@ const Products = () => {
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach((key) => {
-        if (key === "image" && formData[key]) {
-          formDataToSend.append("image", formData[key]);
+        if (key === "images") {
+          formData.images.forEach((file) => {
+            formDataToSend.append("images", file);
+          });
         } else {
           formDataToSend.append(key, formData[key]);
         }
@@ -385,13 +314,9 @@ const Products = () => {
       name: prod.name,
       description: prod.description,
       pricePerUnit: prod.pricePerUnit,
-      size: prod.size,
-      thickness: prod.thickness,
-      weight: prod.weight,
-      materialType: prod.materialType,
       stockQuantity: prod.stockQuantity,
       category: prod.category,
-      image: null,
+      images: [],
     });
     setShowModal(true);
   };

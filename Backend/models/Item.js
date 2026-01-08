@@ -8,19 +8,15 @@ const itemSchema = new mongoose.Schema({
   },
   size: {
     type: String,
-    required: [true, "Please provide a size"],
   },
   thickness: {
     type: Number,
-    required: [true, "Please provide a thickness"],
   },
   weight: {
     type: Number,
-    required: [true, "Please provide a weight"],
   },
   materialType: {
     type: String,
-    required: [true, "Please provide a material type"],
   },
   pricePerUnit: {
     type: Number,
@@ -48,8 +44,13 @@ const itemSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: 'default.jpg'
-  }
+    default: "default.jpg",
+  },
+  images: [
+    {
+      type: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Item", itemSchema);

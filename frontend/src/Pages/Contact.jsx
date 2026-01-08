@@ -110,7 +110,7 @@ function Contact() {
               <Phone className="h-7 w-7 text-white" />
             </div>
             <h3 className="text-lg font-bold text-gray-900 mb-2">Phone</h3>
-            <p className="text-[#b5b3b3]">+962 796981362</p>
+            <p className="text-[#b5b3b3]">+962 790816631</p>
           </motion.div>
 
           <motion.div
@@ -325,7 +325,7 @@ function Contact() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#f46c00]" />
-                  <span className="text-[#b5b3b3]">+962 796981362</span>
+                  <span className="text-[#b5b3b3]">+962 790816631</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-[#f46c00]" />

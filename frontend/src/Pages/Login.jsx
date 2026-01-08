@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import Swal from "sweetalert2";
-import interiorDesignLogin from "../assets/interiorDesignLogin.jpg";
+import interiorDesignLogin from "../assets/UgreenHomeImg.webp";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -244,7 +244,7 @@ function Login() {
         {/* Main background image with darker overlay for better text contrast */}
         <img
           src={interiorDesignLogin}
-          alt="Interior design showcase"
+          alt="MaxPower products"
           className="h-full w-full object-cover"
         />
 
@@ -280,7 +280,7 @@ function Login() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
                   />
                 </svg>
               </div>
@@ -288,16 +288,16 @@ function Login() {
 
             {/* Headline with improved contrast */}
             <h1 className="text-4xl font-bold mb-4 text-white text-center drop-shadow-md">
-              Design Your{" "}
+              Power Your{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f46c00] to-[#ff8c42]">
-                Dream Space
+                Devices
               </span>
             </h1>
 
             {/* Description with improved readability */}
             <p className="text-white text-lg mb-8 text-center leading-relaxed drop-shadow">
-              Transform your living environment with our exclusive collection of
-              premium designs tailored to your unique style.
+              Discover our exclusive collection of premium cables and electronic
+              accessories designed to enhance your digital experience.
             </p>
 
             {/* Feature points with icons for better visual appeal */}
@@ -320,7 +320,7 @@ function Login() {
                   </svg>
                 </div>
                 <p className="ml-3 text-white text-sm">
-                  Personalized recommendations based on your preferences
+                  Personalized cable recommendations for your devices
                 </p>
               </div>
 
@@ -342,7 +342,7 @@ function Login() {
                   </svg>
                 </div>
                 <p className="ml-3 text-white text-sm">
-                  Access to exclusive premium design collections
+                  Access to exclusive premium cable collections
                 </p>
               </div>
 
@@ -364,7 +364,7 @@ function Login() {
                   </svg>
                 </div>
                 <p className="ml-3 text-white text-sm">
-                  Professional design consultations and support
+                  Expert technical support and product guidance
                 </p>
               </div>
             </div>

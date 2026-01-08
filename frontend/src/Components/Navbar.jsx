@@ -103,7 +103,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:block">
             <div className="ml-10 flex items-center space-x-1">
-              {["Home", "Products", "Services", "About ", "Contact"].map(
+              {["Home", "Products", "About ", "Contact"].map(
                 (item, index) => (
                   <Link
                     key={index}
@@ -243,7 +243,7 @@ const Navbar = () => {
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {["Home", "Products", "Services", "About ", "Contact"].map(
+            {["Home", "Products", "About ", "Contact"].map(
               (item, index) => (
                 <Link
                   key={index}

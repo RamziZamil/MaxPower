@@ -16,14 +16,10 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-import aboutGypsum from "../assets/aboutGypsum.jpg";
+import aboutGypsum from "../assets/UgreenHomeImg.webp";
 import developerAbout from "../assets/developerAbout.jpg";
-import headProductAbout from "../assets/headProductAbout.jpg";
-import gypsumboardInstallation from "../assets/gypsumboardInstallation.jpg";
-import gypsumDesignAbout from "../assets/gypsumDesignAbout.jpg";
-import gypsumProductsAbout from "../assets/gypsumProductsAbout.jpg";
 import laithCeo from "../assets/laithCeo.jpeg";
-import SaeedFwaz from "../assets/SaeedFwaz.jpeg";
+import maxPowerLogo from "../assets/logoMaxPower.png";
 
 // Counter component to handle the counting animation
 const Counter = ({ end, duration = 2000 }) => {
@@ -173,13 +169,12 @@ const About = () => {
               className="relative"
             >
               {/* Main Image Container */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white p-8 flex items-center justify-center">
                 <img
-                  src={aboutGypsum}
-                  alt="Premium cables and chargers"
-                  className="w-full h-[500px] object-cover"
+                  src={maxPowerLogo}
+                  alt="MaxPower Logo"
+                  className="w-full h-auto max-h-[500px] object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent"></div>
               </div>
 
               {/* Floating Stats Cards */}
@@ -388,9 +383,9 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {[
                 {
-                  name: "Laith AboHani",
+                  name: "Laith AbuHani",
                   role: "Founder & CEO",
-                  bio: "5+ years in technology and business innovation.",
+                  bio: "2+ years in technology and business innovation.",
                   image: laithCeo,
                 },
                 {

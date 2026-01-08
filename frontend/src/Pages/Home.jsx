@@ -16,32 +16,27 @@ import {
   Github,
   Linkedin,
 } from "lucide-react";
+import ugreenHome from "../assets/UgreenHomeImg.webp";
+import ugreenHomeLightning from "../assets/UgreenHomeImgLightining.webp";
+import wirelessHome from "../assets/WirelessChargeHomeImg.png";
+import ugreenAdapterHome from "../assets/UgreenAdapterHome.webp";
+import homePageVideo from "../assets/VidHomePage.MP4";
 // Using placeholder images - you can replace these with actual cable/charger images
 const heroImageUrl =
   "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1920&auto=format&fit=crop";
 const usbCableImage =
   "https://images.unsplash.com/photo-1625842268584-8f3296236761?w=800&auto=format&fit=crop";
-// Wireless charger image - Qi charging pad
-const wirelessChargerImage =
-  "https://images.unsplash.com/photo-1609091839311-d5365f5f07d0?w=800&auto=format&fit=crop&q=80";
-// Power adapter image - wall charger with multiple ports
-const powerAdapterImage =
-  "https://images.unsplash.com/photo-1609091839311-d5365f5f07d0?w=800&auto=format&fit=crop&q=80";
 
 function Home() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [statsVisible, setStatsVisible] = useState(false);
   const [heroCounts, setHeroCounts] = useState({
-    years: 0,
-    projects: 0,
-    team: 0,
-    clients: 0,
+    products: 0,
+    orders: 0,
+    customers: 0,
   });
 
   useEffect(() => {
@@ -81,41 +76,6 @@ function Home() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/testimonials",
-          {
-            withCredentials: true,
-          }
-        );
-
-        if (response.data && response.data.data) {
-          setTestimonials(response.data.data);
-        } else {
-          console.log("No testimonials data in response");
-        }
-      } catch (err) {
-        console.error("Error fetching testimonials:", err);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
-
-  // Handle testimonial navigation
-  const nextTestimonial = () => {
-    setActiveTestimonial((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  const prevTestimonial = () => {
-    setActiveTestimonial((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
 
   // Animation variants
   const fadeIn = {
@@ -137,105 +97,21 @@ function Home() {
     },
   };
 
-  const statsItem = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        duration: 0.5,
-      },
-    },
-  };
-
-  // Stats counter
-  const [counts, setCounts] = useState({
-    years: 0,
-    facilities: 0,
-    team: 0,
-    projects: 0,
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const statsSection = document.getElementById("stats-section");
-      if (statsSection) {
-        const rect = statsSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100 && !statsVisible) {
-          setStatsVisible(true);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [statsVisible]);
-
-  useEffect(() => {
-    if (statsVisible) {
-      const duration = 2000; // 2 seconds for the animation
-      const interval = 50; // Update every 50ms for smoother animation
-
-      const targetValues = {
-        years: 500,
-        facilities: 50,
-        team: 10000,
-        projects: 50000,
-      };
-
-      const increments = {
-        years: targetValues.years / (duration / interval),
-        facilities: targetValues.facilities / (duration / interval),
-        team: targetValues.team / (duration / interval),
-        projects: targetValues.projects / (duration / interval),
-      };
-
-      const timer = setInterval(() => {
-        setCounts((prevCounts) => {
-          const newCounts = { ...prevCounts };
-          let completed = true;
-
-          Object.keys(targetValues).forEach((key) => {
-            if (newCounts[key] < targetValues[key]) {
-              newCounts[key] = Math.min(
-                newCounts[key] + increments[key],
-                targetValues[key]
-              );
-              completed = false;
-            }
-          });
-
-          if (completed) {
-            clearInterval(timer);
-          }
-
-          return newCounts;
-        });
-      }, interval);
-
-      return () => clearInterval(timer);
-    }
-  }, [statsVisible]);
-
   // Hero stats counter animation
   useEffect(() => {
     const duration = 2000; // 2 seconds for the animation
     const interval = 50; // Update every 50ms for smoother animation
 
     const targetValues = {
-      years: 500,
-      projects: 50000,
-      team: 10000,
-      clients: 50,
+      products: 10,
+      orders: 75,
+      customers: 100,
     };
 
     const increments = {
-      years: targetValues.years / (duration / interval),
-      projects: targetValues.projects / (duration / interval),
-      team: targetValues.team / (duration / interval),
-      clients: targetValues.clients / (duration / interval),
+      products: targetValues.products / (duration / interval),
+      orders: targetValues.orders / (duration / interval),
+      customers: targetValues.customers / (duration / interval),
     };
 
     let timer = null;
@@ -280,10 +156,13 @@ function Home() {
       <section className="relative h-[90vh] max-h-[750px] flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroImageUrl}
-            alt="Premium Cables and Chargers"
+          <video
+            src={homePageVideo}
             className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
           />
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-gray-800/85 to-[#f46c00]/90"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(244,108,0,0.3),transparent_50%)]"></div>
@@ -412,27 +291,22 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+              className="grid grid-cols-3 gap-4 max-w-3xl mx-auto"
             >
               {[
                 {
                   label: "Products Available",
-                  value: heroCounts.years,
+                  value: heroCounts.products,
                   suffix: "+",
                 },
                 {
                   label: "Orders Delivered",
-                  value: heroCounts.projects,
+                  value: heroCounts.orders,
                   suffix: "+",
                 },
                 {
                   label: "Happy Customers",
-                  value: heroCounts.team,
-                  suffix: "+",
-                },
-                {
-                  label: "Countries Served",
-                  value: heroCounts.clients,
+                  value: heroCounts.customers,
                   suffix: "+",
                 },
               ].map((stat, index) => (
@@ -458,82 +332,6 @@ function Home() {
       </section>
 
       <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
-        {/* Stats Section with Animation and Counter Effect */}
-        <section id="stats-section" className="py-12 bg-white">
-          <div className="container mx-auto px-6">
-            <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-              variants={staggerChildren}
-              initial="hidden"
-              animate={statsVisible ? "visible" : "hidden"}
-            >
-              <motion.div
-                className="p-6 rounded-xl hover:shadow-lg transition-all bg-gradient-to-br from-gray-50 to-[#f46c00]/10 border border-[#b5b3b3]/30"
-                variants={statsItem}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-[#f46c00]/10 rounded-full">
-                    <Bolt className="w-6 h-6 text-[#f46c00]" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {Math.round(counts.years)}+
-                </h3>
-                <p className="text-[#b5b3b3]">Products Available</p>
-              </motion.div>
-
-              <motion.div
-                className="p-6 rounded-xl hover:shadow-lg transition-all bg-gradient-to-br from-gray-50 to-[#f46c00]/10 border border-[#b5b3b3]/30"
-                variants={statsItem}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-[#f46c00]/10 rounded-full">
-                    <Building className="w-6 h-6 text-[#f46c00]" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {Math.round(counts.facilities)}+
-                </h3>
-                <p className="text-[#b5b3b3]">Product Categories</p>
-              </motion.div>
-
-              <motion.div
-                className="p-6 rounded-xl hover:shadow-lg transition-all bg-gradient-to-br from-gray-50 to-[#f46c00]/10 border border-[#b5b3b3]/30"
-                variants={statsItem}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-[#f46c00]/10 rounded-full">
-                    <Users className="w-6 h-6 text-[#f46c00]" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {Math.round(counts.team).toLocaleString()}+
-                </h3>
-                <p className="text-[#b5b3b3]">Happy Customers</p>
-              </motion.div>
-
-              <motion.div
-                className="p-6 rounded-xl hover:shadow-lg transition-all bg-gradient-to-br from-gray-50 to-[#f46c00]/10 border border-[#b5b3b3]/30"
-                variants={statsItem}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-[#f46c00]/10 rounded-full">
-                    <Award className="w-6 h-6 text-[#f46c00]" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800">
-                  {Math.round(counts.projects).toLocaleString()}+
-                </h3>
-                <p className="text-[#b5b3b3]">Orders Delivered</p>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Services Section with Creative Design */}
         <section className="py-12 bg-white relative overflow-hidden">
           {/* Creative background elements */}
@@ -602,9 +400,9 @@ function Home() {
                     <div className="order-1 md:order-2 relative">
                       <div className="relative rounded-xl overflow-hidden shadow-xl transform rotate-2 group-hover:rotate-0 transition-transform duration-500">
                         <img
-                          src={usbCableImage}
+                          src={ugreenHome}
                           alt="USB-C Cables"
-                          className="w-full h-56 object-cover"
+                          className="w-full h-72 md:h-90 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#f46c00]/20 to-transparent"></div>
                       </div>
@@ -624,9 +422,9 @@ function Home() {
                     <div className="relative order-1 md:order-1">
                       <div className="relative rounded-xl overflow-hidden shadow-xl transform -rotate-2 group-hover:rotate-0 transition-transform duration-500">
                         <img
-                          src={usbCableImage}
+                          src={ugreenHomeLightning}
                           alt="Lightning Cables"
-                          className="w-full h-56 object-cover"
+                          className="w-full h-72 md:h-90 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#b5b3b3]/20 to-transparent"></div>
                       </div>
@@ -702,9 +500,9 @@ function Home() {
                     <div className="order-1 md:order-2 relative">
                       <div className="relative rounded-xl overflow-hidden shadow-xl transform rotate-2 group-hover:rotate-0 transition-transform duration-500">
                         <img
-                          src={wirelessChargerImage}
+                          src={wirelessHome}
                           alt="Wireless Chargers"
-                          className="w-full h-56 object-cover"
+                          className="w-full h-72 md:h-90 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#f46c00]/20 to-transparent"></div>
                       </div>
@@ -724,9 +522,9 @@ function Home() {
                     <div className="relative order-1 md:order-1">
                       <div className="relative rounded-xl overflow-hidden shadow-xl transform -rotate-2 group-hover:rotate-0 transition-transform duration-500">
                         <img
-                          src={powerAdapterImage}
+                          src={ugreenAdapterHome}
                           alt="Power Adapters"
-                          className="w-full h-56 object-cover"
+                          className="w-full h-72 md:h-90 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#b5b3b3]/20 to-transparent"></div>
                       </div>
@@ -922,7 +720,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Testimonials Section with Animation */}
+        {/* Why Choose MaxPower Section */}
         <section className="py-24 bg-gradient-to-b from-[#f46c00]/5 to-white">
           <div className="container mx-auto px-6">
             <motion.div
@@ -933,141 +731,123 @@ function Home() {
               variants={fadeIn}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-                What Our Clients Say
+                Why Choose <span className="text-[#f46c00]">MaxPower</span>
               </h2>
               <p className="text-lg text-[#b5b3b3] max-w-2xl mx-auto">
-                Read testimonials from our satisfied customers
+                Premium quality cables and chargers designed for reliability and performance
               </p>
             </motion.div>
 
-            {testimonials.length > 0 ? (
-              <div className="relative max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {[
+                {
+                  icon: (
+                    <svg
+                      className="w-8 h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      />
+                    </svg>
+                  ),
+                  title: "Certified Quality",
+                  description:
+                    "All our cables are certified and tested for safety and performance standards.",
+                  color: "from-[#f46c00] to-[#ff8c42]",
+                },
+                {
+                  icon: (
+                    <svg
+                      className="w-8 h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  ),
+                  title: "Fast Charging",
+                  description:
+                    "High-speed charging technology that powers your devices quickly and efficiently.",
+                  color: "from-[#b5b3b3] to-[#9a9898]",
+                },
+                {
+                  icon: (
+                    <svg
+                      className="w-8 h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ),
+                  title: "Durable Design",
+                  description:
+                    "Built to last with reinforced connectors and premium materials for long-term use.",
+                  color: "from-[#f46c00] to-[#ff8c42]",
+                },
+                {
+                  icon: (
+                    <svg
+                      className="w-8 h-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  ),
+                  title: "Best Value",
+                  description:
+                    "Competitive pricing with premium quality - the best value for your money.",
+                  color: "from-[#b5b3b3] to-[#9a9898]",
+                },
+              ].map((feature, index) => (
                 <motion.div
-                  className="bg-white rounded-2xl shadow-xl p-8 md:p-12"
-                  initial={{ opacity: 0, y: 20 }}
+                  key={index}
+                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  key={activeTestimonial} // Re-animate when testimonial changes
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
                 >
-                  <div className="flex justify-center mb-6">
-                    {[...Array(testimonials[activeTestimonial].rating)].map(
-                      (_, index) => (
-                        <motion.svg
-                          key={index}
-                          className="w-6 h-6 text-yellow-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1, duration: 0.3 }}
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </motion.svg>
-                      )
-                    )}
+                  <div
+                    className={`w-16 h-16 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform text-white`}
+                  >
+                    {feature.icon}
                   </div>
-
-                  <motion.p
-                    className="text-xl text-gray-700 text-center mb-8 italic"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                  >
-                    "{testimonials[activeTestimonial].message}"
-                  </motion.p>
-
-                  <motion.div
-                    className="flex flex-col items-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                  >
-                    <h4 className="font-bold text-lg">
-                      {testimonials[activeTestimonial].user?.name ||
-                        "Anonymous"}
-                    </h4>
-                    <p className="text-gray-500 text-sm">
-                      {new Date(
-                        testimonials[activeTestimonial].createdAt
-                      ).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </motion.div>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 text-center">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[#b5b3b3] text-sm text-center leading-relaxed">
+                    {feature.description}
+                  </p>
                 </motion.div>
-
-                {/* Navigation buttons */}
-                <motion.button
-                  onClick={prevTestimonial}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-lg hover:bg-[#f46c00]/10 transition-colors"
-                  aria-label="Previous testimonial"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <svg
-                    className="w-6 h-6 text-[#f46c00]"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </motion.button>
-
-                <motion.button
-                  onClick={nextTestimonial}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-lg hover:bg-[#f46c00]/10 transition-colors"
-                  aria-label="Next testimonial"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <svg
-                    className="w-6 h-6 text-[#f46c00]"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </motion.button>
-
-                {/* Dots indicator */}
-                <div className="flex justify-center mt-8 space-x-2">
-                  {testimonials.map((_, index) => (
-                    <motion.button
-                      key={index}
-                      onClick={() => setActiveTestimonial(index)}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        index === activeTestimonial
-                          ? "bg-[#f46c00]"
-                          : "bg-[#b5b3b3] hover:bg-[#f46c00]/50"
-                      }`}
-                      whileHover={{ scale: 1.2 }}
-                      aria-label={`Go to testimonial ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="text-center p-8 bg-white rounded-lg shadow text-gray-500">
-                No testimonials available at this time.
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </section>
 

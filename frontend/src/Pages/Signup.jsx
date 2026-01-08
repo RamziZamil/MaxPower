@@ -156,7 +156,7 @@ function Signup() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1470&auto=format&fit=crop')",
+              "url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1470&auto=format&fit=crop')",
           }}
         >
           {/* Gradient overlay */}
@@ -179,17 +179,17 @@ function Signup() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
                   />
                 </svg>
               </div>
             </div>
             <h2 className="text-4xl font-bold text-center mb-3 text-white drop-shadow-lg">
-              Design Your Dream Space
+              Power Your Devices
             </h2>
             <p className="text-center text-white text-opacity-90 mb-8 text-lg">
-              Transform your living environment with our exclusive collection of
-              premium designs tailored to your unique style.
+              Discover our exclusive collection of premium cables and electronic
+              accessories designed to enhance your digital experience.
             </p>
             <div className="space-y-5">
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
@@ -210,7 +210,7 @@ function Signup() {
                   </svg>
                 </div>
                 <p className="font-medium">
-                  Personalized recommendations based on your preferences
+                  Personalized cable recommendations for your devices
                 </p>
               </div>
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
@@ -231,7 +231,7 @@ function Signup() {
                   </svg>
                 </div>
                 <p className="font-medium">
-                  Access to exclusive premium design collections
+                  Access to exclusive premium cable collections
                 </p>
               </div>
               <div className="flex items-center bg-white/10 p-3 rounded-xl backdrop-blur-sm">
@@ -252,7 +252,7 @@ function Signup() {
                   </svg>
                 </div>
                 <p className="font-medium">
-                  Professional design consultations and support
+                  Expert technical support and product guidance
                 </p>
               </div>
             </div>

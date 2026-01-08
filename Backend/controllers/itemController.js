@@ -52,9 +52,14 @@ exports.getItem = async (req, res) => {
 // Create item (Admin only)
 exports.createItem = async (req, res) => {
   try {
-    // Handle image upload
-    if (req.file) {
-      req.body.image = req.file.path;
+    // Handle image upload (single or multiple)
+    if (req.files && req.files.length > 0) {
+      const imagePaths = req.files.map((file) => file.path);
+      req.body.images = imagePaths;
+      // Keep a primary image for backward compatibility
+      if (!req.body.image) {
+        req.body.image = imagePaths[0];
+      }
     }
 
     const item = await Item.create(req.body);
@@ -82,9 +87,13 @@ exports.createItem = async (req, res) => {
 // Update item (Admin only)
 exports.updateItem = async (req, res) => {
   try {
-    // Handle image upload
-    if (req.file) {
-      req.body.image = req.file.path;
+    // Handle image upload (single or multiple)
+    if (req.files && req.files.length > 0) {
+      const imagePaths = req.files.map((file) => file.path);
+      req.body.images = imagePaths;
+      if (!req.body.image) {
+        req.body.image = imagePaths[0];
+      }
     }
 
     const item = await Item.findByIdAndUpdate(req.params.id, req.body, {

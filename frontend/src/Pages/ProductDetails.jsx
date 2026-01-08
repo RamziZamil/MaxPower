@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../AuthContext";
+import SEO from "../Components/SEO";
+import StructuredData from "../Components/StructuredData";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,6 +17,7 @@ function ProductDetails() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const { addToWishlist, isInWishlist } = useWishlist();
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
@@ -150,8 +153,30 @@ function ProductDetails() {
     );
   }
 
+  const images =
+    product.images && product.images.length > 0
+      ? product.images
+      : product.image
+      ? [product.image]
+      : [];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      {product && (
+        <>
+          <SEO
+            title={`${product.name} - Premium Cable | MaxPower`}
+            description={
+              product.description ||
+              `Buy ${product.name} at MaxPower. Premium quality cable with fast charging and durable design.`
+            }
+            keywords={`${product.name}, ${product.category}, premium cable, fast charging, MaxPower`}
+            image={product.image}
+            type="product"
+          />
+          <StructuredData product={product} />
+        </>
+      )}
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Static Navigation */}
         <div className="flex items-center justify-between mb-6">
@@ -194,7 +219,7 @@ function ProductDetails() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
-          {/* Main Image - Smaller */}
+          {/* Main Image + Gallery */}
           <div className="lg:col-span-2">
             <motion.div
               className="relative bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100"
@@ -203,13 +228,38 @@ function ProductDetails() {
               transition={{ duration: 0.5 }}
             >
               <div className="h-96 bg-gradient-to-br from-gray-50 to-white">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain p-6"
-                />
+                {images.length > 0 && (
+                  <img
+                    src={images[activeImageIndex]}
+                    alt={product.name}
+                    className="w-full h-full object-contain p-6"
+                  />
+                )}
               </div>
             </motion.div>
+
+            {/* Thumbnails */}
+            {images.length > 1 && (
+              <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+                {images.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveImageIndex(index)}
+                    className={`relative h-20 w-20 rounded-xl border-2 overflow-hidden flex-shrink-0 ${
+                      index === activeImageIndex
+                        ? "border-[#f46c00]"
+                        : "border-gray-200 hover:border-[#f46c00]/60"
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`${product.name} ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Purchase Card - Right Side - Smaller */}
