@@ -23,6 +23,8 @@ mongoose
 const allowedOrigins = [
   "http://localhost:5173", // Development
   "http://localhost:3000", // Alternative dev port
+  "https://maxpowerjo.com", // Production frontend
+  "https://www.maxpowerjo.com", // Production frontend with www
   process.env.FRONTEND_URL, // Production frontend URL from .env
 ].filter(Boolean); // Remove undefined values
 
@@ -32,7 +34,11 @@ app.use(
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      // Check if origin is in allowed list
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else if (process.env.NODE_ENV !== 'production') {
+        // In development, allow localhost origins
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
