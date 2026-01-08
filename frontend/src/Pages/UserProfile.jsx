@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
+import { API_ENDPOINTS } from "../config/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tab } from "@headlessui/react";
 import {
@@ -274,7 +275,7 @@ const UserProfile = () => {
     try {
       setOrdersLoading(true);
       const response = await axios.get(
-        "http://localhost:5000/api/orders/myorders",
+        API_ENDPOINTS.MY_ORDERS,
         {
           withCredentials: true,
         }
@@ -300,7 +301,7 @@ const UserProfile = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:5000/api/users/profile",
+        API_ENDPOINTS.PROFILE,
         {
           withCredentials: true,
         }
@@ -374,7 +375,7 @@ const UserProfile = () => {
 
       if ([...formDataToSend.entries()].length > 0) {
         await axios.put(
-          `http://localhost:5000/api/users/${user._id}`,
+          API_ENDPOINTS.USER_BY_ID(user._id),
           formDataToSend,
           {
             headers: {

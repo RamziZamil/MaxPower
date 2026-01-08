@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/api";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaShoppingBag, FaMapMarkerAlt, FaCreditCard, FaCalendar, FaPhone, FaEnvelope } from "react-icons/fa";
@@ -23,7 +24,7 @@ const OrderConfirmation = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:5000/api/orders/${orderId}`,
+          API_ENDPOINTS.ORDER_BY_ID(orderId),
           {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,

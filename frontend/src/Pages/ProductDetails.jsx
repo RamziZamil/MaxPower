@@ -9,6 +9,7 @@ import { useCart } from "../context/CartContext";
 import { useAuth } from "../AuthContext";
 import SEO from "../Components/SEO";
 import StructuredData from "../Components/StructuredData";
+import { API_ENDPOINTS } from "../config/api";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -26,13 +27,13 @@ function ProductDetails() {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/items/${id}`
+          API_ENDPOINTS.ITEM_BY_ID(id)
         );
         setProduct(response.data.data);
 
         if (response.data.data.category) {
           const featuredResponse = await axios.get(
-            `http://localhost:5000/api/items/category?category=${response.data.data.category}&limit=4`
+            `${API_ENDPOINTS.ITEMS_BY_CATEGORY}?category=${response.data.data.category}&limit=4`
           );
           setFeaturedProducts(
             featuredResponse.data.data.filter((p) => p._id !== id)

@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import axios from "axios";
 import AdminLayout from "../../Components/AdminLayout";
 import { useAuth } from "../../AuthContext";
+import { API_ENDPOINTS } from "../../config/api";
 import { motion } from "framer-motion";
 import {
   FaPlus,
@@ -199,7 +200,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/api/users", {
+      const response = await axios.get(API_ENDPOINTS.USERS, {
         withCredentials: true,
       });
       setUsers(response.data.data);
@@ -234,7 +235,7 @@ const Users = () => {
       if (editingUser) {
         const { password, ...updateData } = formData; // Remove password if not provided
         await axios.put(
-          `http://localhost:5000/api/users/${editingUser._id}`,
+          API_ENDPOINTS.USER_BY_ID(editingUser._id),
           updateData,
           {
             withCredentials: true,
@@ -242,7 +243,7 @@ const Users = () => {
         );
         toast.success("User updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/users", formData, {
+        await axios.post(API_ENDPOINTS.USERS, formData, {
           withCredentials: true,
         });
         toast.success("User added successfully");
@@ -283,7 +284,7 @@ const Users = () => {
   const handleDelete = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/users/${userId}`, {
+        await axios.delete(API_ENDPOINTS.USER_BY_ID(userId), {
           withCredentials: true,
         });
         toast.success("User deleted successfully");

@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
+import { API_ENDPOINTS } from "../config/api";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -116,7 +117,7 @@ function Signup() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        API_ENDPOINTS.REGISTER,
         formDataToSend,
         {
           headers: {

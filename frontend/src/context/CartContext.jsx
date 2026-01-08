@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
+import { API_ENDPOINTS } from "../config/api";
 
 const CartContext = createContext();
 
@@ -26,7 +27,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/cart",
+        API_ENDPOINTS.CART,
         getAuthConfig()
       );
       setCart(response.data.data);
@@ -50,7 +51,7 @@ export const CartProvider = ({ children }) => {
       console.log("Auth config:", getAuthConfig());
 
       const response = await axios.post(
-        "http://localhost:5000/api/cart/add",
+        API_ENDPOINTS.ADD_TO_CART,
         { itemId, quantity },
         getAuthConfig()
       );
@@ -75,7 +76,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/cart/update-quantity",
+        API_ENDPOINTS.UPDATE_CART,
         { itemId, quantity },
         getAuthConfig()
       );
@@ -100,7 +101,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/cart/remove/${itemId}`,
+        API_ENDPOINTS.REMOVE_FROM_CART(itemId),
         getAuthConfig()
       );
       setCart(response.data.data);
@@ -121,7 +122,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/cart/clear",
+        API_ENDPOINTS.CLEAR_CART,
         getAuthConfig()
       );
       setCart(response.data.data);

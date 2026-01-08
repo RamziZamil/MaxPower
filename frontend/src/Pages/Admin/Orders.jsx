@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminLayout from "../../Components/AdminLayout";
 import { useAuth } from "../../AuthContext";
+import { API_ENDPOINTS } from "../../config/api";
 import { motion } from "framer-motion";
 import {
   FiEye,
@@ -37,7 +38,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/api/orders", {
+      const response = await axios.get(API_ENDPOINTS.ORDERS, {
         withCredentials: true,
       });
       setOrders(response.data.data);
@@ -59,7 +60,7 @@ const Orders = () => {
     try {
       setLoading(true);
       await axios.put(
-        `http://localhost:5000/api/orders/${orderId}`,
+        API_ENDPOINTS.ORDER_BY_ID(orderId),
         {
           status: newStatus,
           note: updateNote || `Status updated to ${newStatus}`,

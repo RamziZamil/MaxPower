@@ -7,6 +7,7 @@ import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API_ENDPOINTS } from "../config/api";
 
 function Products() {
   const [items, setItems] = useState([]);
@@ -34,7 +35,7 @@ function Products() {
     const fetchItems = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/items");
+        const response = await axios.get(API_ENDPOINTS.ITEMS);
         if (Array.isArray(response.data.data)) {
           setItems(response.data.data);
           setFilteredItems(response.data.data);

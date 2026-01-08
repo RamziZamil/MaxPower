@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import AdminLayout from "../../Components/AdminLayout";
+import { API_ENDPOINTS } from "../../config/api";
 import Swal from "sweetalert2";
 import {
   FaEnvelope,
@@ -57,7 +58,7 @@ function ContactMessages() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:5000/api/contact-messages",
+        API_ENDPOINTS.CONTACT_MESSAGES,
         {
           withCredentials: true,
         }
@@ -74,7 +75,7 @@ function ContactMessages() {
   const handleUpdateStatus = async (messageId, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/contact-messages/${messageId}/status`,
+        API_ENDPOINTS.CONTACT_MESSAGE_STATUS(messageId),
         { status },
         { withCredentials: true }
       );
@@ -105,7 +106,7 @@ function ContactMessages() {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:5000/api/contact-messages/${messageId}`,
+          API_ENDPOINTS.CONTACT_MESSAGE_DELETE(messageId),
           { withCredentials: true }
         );
 

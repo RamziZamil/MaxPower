@@ -4,6 +4,7 @@ import DataTable from "react-data-table-component";
 import axios from "axios";
 import AdminLayout from "../../Components/AdminLayout";
 import { useAuth } from "../../AuthContext";
+import { API_ENDPOINTS } from "../../config/api";
 import { motion } from "framer-motion";
 import {
   FaPlus,
@@ -229,7 +230,7 @@ const Products = () => {
   async function fetchProducts() {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/items", {
+      const res = await axios.get(API_ENDPOINTS.ITEMS, {
         withCredentials: true,
       });
       setProducts(res.data.data);
@@ -280,7 +281,7 @@ const Products = () => {
 
       if (editingProduct) {
         await axios.put(
-          `http://localhost:5000/api/items/${editingProduct._id}`,
+          API_ENDPOINTS.ITEM_BY_ID(editingProduct._id),
           formDataToSend,
           {
             withCredentials: true,
@@ -291,7 +292,7 @@ const Products = () => {
         );
         toast.success("Product updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/items", formDataToSend, {
+        await axios.post(API_ENDPOINTS.ITEMS, formDataToSend, {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
@@ -334,7 +335,7 @@ const Products = () => {
     });
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/items/${id}`, {
+        await axios.delete(API_ENDPOINTS.ITEM_BY_ID(id), {
           withCredentials: true,
         });
         toast.success("Product deleted successfully");

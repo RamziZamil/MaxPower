@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/api";
 import AdminLayout from "../Components/AdminLayout";
 import { motion } from "framer-motion";
 import {
@@ -81,16 +82,16 @@ function AdminDashboard() {
         productsResponse,
         messagesResponse,
       ] = await Promise.all([
-        axios.get("http://localhost:5000/api/users", {
+        axios.get(API_ENDPOINTS.USERS, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/orders", {
+        axios.get(API_ENDPOINTS.ORDERS, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/items", {
+        axios.get(API_ENDPOINTS.ITEMS, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/contact-messages", {
+        axios.get(API_ENDPOINTS.CONTACT_MESSAGES, {
           withCredentials: true,
         }),
       ]);
@@ -118,16 +119,16 @@ function AdminDashboard() {
         ordersResponse,
         messagesResponse,
       ] = await Promise.all([
-        axios.get("http://localhost:5000/api/users?limit=7", {
+        axios.get(`${API_ENDPOINTS.USERS}?limit=7`, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/items?limit=7", {
+        axios.get(`${API_ENDPOINTS.ITEMS}?limit=7`, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/orders?limit=7", {
+        axios.get(`${API_ENDPOINTS.ORDERS}?limit=7`, {
           withCredentials: true,
         }),
-        axios.get("http://localhost:5000/api/contact-messages?limit=7", {
+        axios.get(`${API_ENDPOINTS.CONTACT_MESSAGES}?limit=7`, {
           withCredentials: true,
         }),
       ]);
@@ -146,7 +147,7 @@ function AdminDashboard() {
   const handleUpdateMessageStatus = async (messageId, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/contact-messages/${messageId}/status`,
+        API_ENDPOINTS.CONTACT_MESSAGE_STATUS(messageId),
         { status },
         { withCredentials: true }
       );

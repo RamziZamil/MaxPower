@@ -4,6 +4,7 @@ import { useAuth } from "../AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/api";
 import { motion } from "framer-motion";
 import { FaShoppingBag, FaCreditCard, FaMoneyBillWave, FaCheckCircle } from "react-icons/fa";
 
@@ -119,7 +120,7 @@ const Checkout = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/orders",
+        API_ENDPOINTS.CREATE_ORDER,
         orderData,
         config
       );

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { API_ENDPOINTS } from "../config/api";
 import {
   Phone,
   Mail,
@@ -9,7 +11,6 @@ import {
   Twitter,
   Instagram,
 } from "lucide-react";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,7 +34,7 @@ function Contact() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/contact-messages",
+        API_ENDPOINTS.CONTACT_MESSAGES,
         formData
       );
       toast.success("Your message has been sent! We'll get back to you soon.");

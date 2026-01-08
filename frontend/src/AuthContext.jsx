@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "./config/api";
 
 // Configure axios to always include credentials
 axios.defaults.withCredentials = true;
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (token) {
           const response = await axios.get(
-            "http://localhost:5000/api/users/profile",
+            API_ENDPOINTS.PROFILE,
             {
               headers: { Authorization: `Bearer ${token}` },
               withCredentials: true,
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
       // Fetch user profile
       const response = await axios.get(
-        "http://localhost:5000/api/users/profile",
+        API_ENDPOINTS.PROFILE,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -101,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     try {
       // Call the logout endpoint to clear the cookie
       await axios.post(
-        "http://localhost:5000/api/auth/logout",
+        API_ENDPOINTS.LOGOUT,
         {},
         {
           withCredentials: true,

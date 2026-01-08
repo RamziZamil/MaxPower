@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import Swal from "sweetalert2";
 import interiorDesignLogin from "../assets/UgreenHomeImg.webp";
+import { API_ENDPOINTS } from "../config/api";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ function Login() {
     try {
       // Make login request
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        API_ENDPOINTS.LOGIN,
         { email, password },
         { withCredentials: true }
       );
